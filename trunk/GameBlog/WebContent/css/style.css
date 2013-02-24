@@ -1,0 +1,27 @@
+.errorMessage{
+	color:#EF0F0F;
+	font-family:tahoma, verdana, arial, sans-serif;
+	font-size:13px;
+}
+
+body{
+	background: #EFEFEF;
+	margin-left: 12%;
+	margin-right: 12%;
+	margin-top: 20px;
+}
+
+.contenu{
+	border: 1px solid #FFFFFF;
+	border-radius: 10px;
+	box-shadow: 0px 0px 2px #999999;
+	padding-left: 0px;
+	padding-right: 0px;
+	background: white;
+}
+
+.alert{
+	position: absolute;
+	top: 20%;
+	left: 40%;
+}

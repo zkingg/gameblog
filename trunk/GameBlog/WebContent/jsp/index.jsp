@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix ="s" uri="/struts-tags" %>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,14 +13,15 @@
 <title>Titre</title>
 </head>
 <body>
-	<jsp:include page="/jsp/layout/header.jsp" />
 	<div class="contenu">
+		<jsp:include page="/jsp/layout/header.jsp" />
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span3">
-					<jsp:include page="/jsp/layout/menu.jsp" />
-				</div>
-				<div class="span6">Lorem ipsum dolor sit amet, consectetur
+				<div class="span8">
+					<s:iterator value="users">
+						<s:property/><br/>
+					</s:iterator>
+					Lorem ipsum dolor sit amet, consectetur
 					adipisicing elit, sed do eiusmod tempor incididunt ut labore et
 					dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
 					exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -28,8 +31,8 @@
 					anim id est laborum.
 				
 				</div>
-				<div class="span3">
-					<jsp:include page="/jsp/layout/rss.jsp" />
+				<div class="span4">
+					<jsp:include page="/jsp/layout/menu.jsp" />
 				</div>
 			</div>
 		</div>

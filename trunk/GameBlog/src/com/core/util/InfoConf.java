@@ -8,10 +8,12 @@ public class InfoConf {
 	private String mdp;
 	
 	public InfoConf(){
-		this.db = "gameblog";
+		//*
+		this.db = "minecraft";
 		this.host = "localhost";
 		this.login = "root";
-		this.mdp = "";
+		this.mdp = "";//*/
+		
 	}
 	
 	public String getDB(){return this.db;}

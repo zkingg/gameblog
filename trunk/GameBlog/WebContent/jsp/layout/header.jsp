@@ -3,7 +3,23 @@
 <script src="css/bootstrap/js/bootstrap.min.js"></script>
 <script src="js/init_alert.js"></script>
 <header>
+	<div class="navbar" >
+		<div class="navbar-inner" >
+			<a  class="brand" >GameBlog</a>
+			<ul class="nav">
+				<li><a href="#" >Action 1</a></li>
+				<li><a href="#" >Action 2</a></li>
+				<li><a href="#" >Action 3</a></li>
+				<li class="divider-vertical" ></li>		
+				
+			</ul>
+			<div class="nav pull-right">
+				<li class="pull-right"><a id="btnlogin" data-toggle="popover" title="Connexion" data-content="<jsp:include page='/jsp/layout/login_form.jsp' />" ><i class="icon-user icon-white"></i>  Se connecter</a></li>		
+			</div>
+		</div>
+	</div>
 	<h1>Header</h1>
+	<!--  Popup Message -->
 	<s:if test="message!=null">
 	 	<s:if test="message.type =='error'">
 	 		<div class="alert alert-error popup_alert fade in" >

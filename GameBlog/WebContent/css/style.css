@@ -6,8 +6,8 @@
 
 body{
 	background: #EFEFEF;
-	margin-left: 12%;
-	margin-right: 12%;
+	margin-left: 10%;
+	margin-right: 10%;
 	margin-top: 20px;
 }
 
@@ -24,4 +24,15 @@ body{
 	position: absolute;
 	top: 20%;
 	left: 40%;
+}
+
+.login-field{
+	width:87%;
+	margin-top: 5px;
+}
+
+
+
+#login_form{
+	text-align: center;
 }

@@ -14,6 +14,12 @@
     <action name="index" class="com.blog.index.IndexController" method="list">
      	 <result name="index">/jsp/index.jsp</result>
     </action>
-
+	<action name="inscription" >
+     	 <result >/jsp/user/inscription.jsp</result>
+    </action>
+    	<action name="inscription_valider" class="com.blog.action.UserAction" method="valider">
+     	 <result name="ok" >/jsp/index.jsp</result>
+     	 <result name="nok" >/jsp/user/inscription.jsp</result>
+    </action>
 </package>   
 </struts>

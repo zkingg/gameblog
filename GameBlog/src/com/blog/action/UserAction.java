@@ -1,8 +1,13 @@
 package com.blog.action;
 
+import com.core.beans.User;
+import com.core.util.PopupMessage;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UserAction extends ActionSupport{
+	private PopupMessage message;
+	public PopupMessage getMessage(){return this.message;}
+	
 	private String login;
 	private String mdp;
 	private String mdp2;
@@ -34,6 +39,14 @@ public class UserAction extends ActionSupport{
 	}
 	
 	public String valider(){
+		if(mdp.equalsIgnoreCase(mdp2)){
+			if(User.createUser(login, mdp, email))
+				return "ok";
+			else
+				message = new PopupMessage(getText("user.inscription.erreur.echec"), "error");	
+		}
+		else
+			addFieldError("mdp2", getText("user.inscription.erreur.mdp2"));
 		
 		return "nok";
 	}

@@ -9,7 +9,7 @@ public class InfoConf {
 	
 	public InfoConf(){
 		//*
-		this.db = "minecraft";
+		this.db = "gameblog";
 		this.host = "localhost";
 		this.login = "root";
 		this.mdp = "";//*/

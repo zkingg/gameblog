@@ -23,12 +23,12 @@
 						<s:textfield name="login" id="login" 
 							label="%{getText('user.inscription.login')}" labelposition="left" cssClass="label">
 						</s:textfield>
-						<s:textfield name="mdp" id="mdp" 
+						<s:password name="mdp" id="mdp" 
 							label="%{getText('user.inscription.mdp')}" labelposition="left" cssClass="label">
-						</s:textfield>
-						<s:textfield name="mdp2" id="mdp2" 
+						</s:password>
+						<s:password name="mdp2" id="mdp2" 
 							label="%{getText('user.inscription.mdp2')}" labelposition="left" cssClass="label">
-						</s:textfield>
+						</s:password>
 						<s:textfield name="email" id="email" 
 							label="%{getText('user.inscription.email')}" labelposition="left" cssClass="label">
 						</s:textfield>

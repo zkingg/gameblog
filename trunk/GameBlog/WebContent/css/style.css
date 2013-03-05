@@ -18,12 +18,14 @@ body{
 	padding-left: 0px;
 	padding-right: 0px;
 	background: white;
+	text-align:center;
 }
 
 .alert{
 	position: absolute;
 	top: 20%;
-	left: 40%;
+	margin-left: 25%;
+	margin-right: 25%;
 }
 
 .login-field{

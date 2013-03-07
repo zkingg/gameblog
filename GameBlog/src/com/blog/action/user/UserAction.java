@@ -1,7 +1,8 @@
-package com.blog.action;
+package com.blog.action.user;
 
 import com.core.beans.User;
 import com.core.util.PopupMessage;
+import com.exception.AlreadyActivateAccountException;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UserAction extends ActionSupport{

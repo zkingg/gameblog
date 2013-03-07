@@ -8,6 +8,10 @@
 <constant name="struts.devMode" value="false" />
 <constant name="struts.custom.i18n.resources" value="package"  />
 <package name="com.blog.index"  namespace="/" extends="struts-default">
+    <result-types>
+		<result-type name="samePage" class="com.blog.redirect.RedirectSamePage" />
+	</result-types>
+    
     <!-- Action de l'action de rÃ©ference -->   
     <default-action-ref name="index"/> 
     
@@ -17,9 +21,19 @@
 	<action name="inscription" >
      	 <result >/jsp/user/inscription.jsp</result>
     </action>
-    	<action name="inscription_valider" class="com.blog.action.UserAction" method="valider">
+    <action name="inscription_valider" class="com.blog.action.user.UserAction" method="valider">
      	 <result name="ok" >/jsp/index.jsp</result>
      	 <result name="nok" >/jsp/user/inscription.jsp</result>
     </action>
+    <action name="activation" class="com.blog.action.user.ActivationUser" method="activer">
+     	 <result name="input">/jsp/index.jsp</result>
+    </action>
+    <action name="login" class="com.blog.action.user.LoginAction" >
+		<result type="samePage" name="success"/>
+    </action>
+    <action name="disconnect" class="com.blog.action.user.LoginAction"  method="disconnect">
+		<result type="samePage" name="success"/>
+    </action>
+    
 </package>   
 </struts>

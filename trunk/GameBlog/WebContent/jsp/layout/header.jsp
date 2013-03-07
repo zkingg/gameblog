@@ -14,7 +14,13 @@
 				
 			</ul>
 			<div class="nav pull-right">
-				<li class="pull-right"><a id="btnlogin" data-toggle="popover" title="Connexion" data-content="<jsp:include page='/jsp/layout/login_form.jsp' />" ><i class="icon-user icon-white"></i>  Se connecter</a></li>		
+				<s:if test="#session.info == null">
+					<li class="pull-right"><a id="btnlogin" data-toggle="popover" title="Connexion" data-content="<jsp:include page='/jsp/layout/login_form.jsp' />" ><i class="icon-user icon-white"></i>  Se connecter</a></li>		
+				</s:if>
+				<s:else>
+					<li class="pull-right"><a href="#" >Votre Compte</a></li>
+					<li class="pull-right"><a href="disconnect" >Se deconnecter</a></li>  
+				</s:else>		 
 			</div>
 		</div>
 	</div>

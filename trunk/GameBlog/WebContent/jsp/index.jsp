@@ -10,7 +10,7 @@
 	type="text/css" />
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-<title>Titre</title>
+<title>Acceuil</title>
 </head>
 <body>
 	<div class="contenu">
@@ -19,7 +19,7 @@
 			<div class="row-fluid">
 				<div class="span8">
 					<s:iterator value="users">
-						<s:property/><br/>
+						<s:property value="login" /><br/>
 					</s:iterator>
 					Lorem ipsum dolor sit amet, consectetur
 					adipisicing elit, sed do eiusmod tempor incididunt ut labore et

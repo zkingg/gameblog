@@ -2,14 +2,18 @@ package com.core.beans;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.blog.action.user.InfoPageAction.Pagination;
 import com.core.util.GetConnection;
 import com.core.util.Mailler;
 import com.core.util.Util;
@@ -21,12 +25,14 @@ public class User {
 	private String login;
 	private String groupe;
 	private String email;
+	private String dateActivation;
+	private String cleActivation;
 	
 	
 	public User(long id) throws UserNotFoundException {
 		try {
 			Statement stm = GetConnection.getConnection().createStatement();
-			ResultSet res = stm.executeQuery("select login,email,g.nom as groupe from users u join groups g on(u.id_group = g.id)  where u.id="+id);
+			ResultSet res = stm.executeQuery("select login,email,cle_activation,date_activation,g.nom as groupe from users u join groups g on(u.id_group = g.id)  where u.id="+id);
 			if(! res.next())
 				throw new UserNotFoundException();
 			
@@ -34,6 +40,8 @@ public class User {
 			this.login=res.getString("login");
 			this.groupe=res.getString("groupe");
 			this.email=res.getString("email");
+			this.dateActivation=res.getString("date_activation");
+			this.cleActivation=res.getString("cle_activation");
 		} catch (SQLException e) {e.printStackTrace();}
 	}
 	
@@ -43,6 +51,12 @@ public class User {
 	public void setGroupe(String groupe) {this.groupe = groupe;}
 	public String getLogin(){return this.login;}
 	public void setLogin(String login){this.login = login;}
+	public String getEmail(){return this.email;}
+	public void setEmail(String email){this.email = email;}
+	public String getCleActivation() {return cleActivation;}
+	public void setCleActivation(String groupe) {this.cleActivation = cleActivation;}
+	public String getDateActivation(){return this.dateActivation;}
+	public void setDateActivation(String login){this.dateActivation = dateActivation;}
 	
 	public static boolean createUser(String login,String mdp,String email){
 		try {
@@ -90,7 +104,11 @@ public class User {
 	
 	public static long login(String login,String mdp){
 		try {
-			PreparedStatement stm = GetConnection.getConnection().prepareStatement("select id from users where mdp = ? and login=? and date_activation is not null");
+			PreparedStatement stm = GetConnection.getConnection().prepareStatement("select u.id " +
+																					"from users u " +
+																					"join groups g on (u.id_group = g.id) " +
+																					"where mdp = ? and login=? and date_activation is not null " +
+																					"and g.id != 4");
 			stm.setString(1,Util.md5(mdp));//mdp
 			stm.setString(2,login);//login
 			ResultSet res = stm.executeQuery();
@@ -102,6 +120,43 @@ public class User {
 			e.printStackTrace();
 			return -1;
 		}
+	}
+	
+	public static ArrayList<User> getListUser(){
+		return getListUser(1);
+	}
+	
+	public static ArrayList<User> getListUser(int page){
+		ArrayList<User> list = new ArrayList<User>();
+		
+		try {
+			Statement stm = GetConnection.getConnection().createStatement();
+			ResultSet res = stm.executeQuery("select id from users limit "+(page-1)*Pagination.ELEMENT_PAR_PAGE+","+Pagination.ELEMENT_PAR_PAGE);
+			while(res.next()){
+				list.add(new User(res.getInt("id")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	public static int getNbAccount() {
+		try {
+			Statement stm = GetConnection.getConnection().createStatement();
+			ResultSet res = stm.executeQuery("select id from users");
+			res.last();
+			return res.getRow();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 }

@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="css/bootstrap/css/bootstrap.css"
+<link rel="stylesheet" href="/GameBlog/css/bootstrap/css/bootstrap.css"
 	type="text/css" />
-<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="/GameBlog/css/style.css" type="text/css" />
 
 <title>Administration du compte</title>
 </head>
@@ -45,7 +45,7 @@
 						<s:if test="#session.user.groupe =='admin' " >
 						  	<div class="tab-pane" id="administration">
 						  		Gestion users:<br/>
-						  		<a href="user_list" >Liste utilisateurs</a>
+						  		<a href="/GameBlog/user_list" >Liste utilisateurs</a>
 						  	</div>
 					  	</s:if>
 					</div>

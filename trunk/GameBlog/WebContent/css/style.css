@@ -34,6 +34,13 @@ body{
 }
 
 
+#article_textearea{
+	width: 90%;
+}
+
+.wwFormTable{
+	width: 100%;
+}
 
 #login_form{
 	text-align: center;

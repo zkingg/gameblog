@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="css/bootstrap/css/bootstrap.css"
+<link rel="stylesheet" href="/GameBlog/css/bootstrap/css/bootstrap.css"
 	type="text/css" />
-<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="/GameBlog/css/style.css" type="text/css" />
 
 <title>Création de compte</title>
 </head>
@@ -18,7 +18,7 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span8">
-					<s:form method="post" action="inscription_valider" validate="true">
+					<s:form method="post" action="/GameBlog/inscription_valider" validate="true">
 						<h1><s:text name="user.inscription.titre" ></s:text></h1>
 						<s:textfield name="login" id="login" 
 							label="%{getText('user.inscription.login')}" labelposition="left" cssClass="label">

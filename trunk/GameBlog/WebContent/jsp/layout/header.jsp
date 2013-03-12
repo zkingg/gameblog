@@ -1,11 +1,11 @@
 <%@ taglib prefix ="s" uri="/struts-tags" %>
-<script type="text/javascript" src="js/jquery-1.9.1.js"></script>	
-<script src="css/bootstrap/js/bootstrap.min.js"></script>
-<script src="js/init_alert.js"></script>
+<script type="text/javascript" src="/GameBlog/js/jquery-1.9.1.js"></script>	
+<script src="/GameBlog/css/bootstrap/js/bootstrap.min.js"></script>
+<script src="/GameBlog/js/init_alert.js"></script>
 <header>
 	<div class="navbar" >
 		<div class="navbar-inner" >
-			<a  class="brand" href="index">GameBlog</a>
+			<a  class="brand" href="/GameBlog/index">GameBlog</a>
 			<ul class="nav">
 				<li><a href="#" >Action 1</a></li>
 				<li><a href="#" >Action 2</a></li>
@@ -18,8 +18,11 @@
 					<li class="pull-right"><a id="btnlogin" data-toggle="popover" title="Connexion" data-content="<jsp:include page='/jsp/layout/login_form.jsp' />" ><i class="icon-user icon-white"></i>  Se connecter</a></li>		
 				</s:if>
 				<s:else>
-					<li class="pull-right"><a href="user_page" >Votre Compte</a></li>
-					<li class="pull-right"><a href="disconnect" >Se deconnecter</a></li>  
+					<s:if test="#session.user.groupe == 'redacteur' || #session.user.groupe =='admin' ">
+						<li class="pull-right"><a href="/GameBlog/article/new" >Ajouter un article</a></li>
+					</s:if>
+					<li class="pull-right"><a href="/GameBlog/user_page" >Votre Compte</a></li>
+					<li class="pull-right"><a href="/GameBlog/disconnect" >Se deconnecter</a></li>  
 				</s:else>		 
 			</div>
 		</div>

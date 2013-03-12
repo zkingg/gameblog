@@ -18,6 +18,8 @@
     <action name="index" class="com.blog.index.IndexController" method="list">
      	 <result name="index">/jsp/index.jsp</result>
     </action>
+	
+	<!--  User action -->
 	<action name="inscription" >
      	 <result >/jsp/user/inscription.jsp</result>
     </action>
@@ -50,5 +52,17 @@
     </action>
     <action name="user_list_modif_group_ajax" class="com.blog.action.user.InfoPageAction" method="modifGroup">
     </action>
+  
 </package>   
+<package name="com.blog.action.article"  namespace="/article" extends="struts-default">
+    <action name="new" >
+        <result>/jsp/article/new.jsp</result>
+    </action>
+    <action name="view" >
+        <result>/jsp/article/view.jsp</result>
+    </action>
+    <action name="edit" >
+        <result>/jsp/article/edit.jsp</result>
+    </action>
+</package>
 </struts>

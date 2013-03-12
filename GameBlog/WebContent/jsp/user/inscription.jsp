@@ -10,7 +10,7 @@
 	type="text/css" />
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-<title>Titre</title>
+<title>Création de compte</title>
 </head>
 <body>
 	<div class="contenu">

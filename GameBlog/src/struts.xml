@@ -5,7 +5,7 @@
 
 <struts>
 <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-<constant name="struts.devMode" value="false" />
+<constant name="struts.devMode" value="true" />
 <constant name="struts.custom.i18n.resources" value="package"  />
 <package name="com.blog.index"  namespace="/" extends="struts-default">
     <result-types>
@@ -22,11 +22,13 @@
      	 <result >/jsp/user/inscription.jsp</result>
     </action>
     <action name="inscription_valider" class="com.blog.action.user.UserAction" method="valider">
-     	 <result name="ok" >/jsp/index.jsp</result>
+     	 <result name="ok" type="redirectAction" >index</result>
      	 <result name="nok" >/jsp/user/inscription.jsp</result>
     </action>
     <action name="activation" class="com.blog.action.user.ActivationUser" method="activer">
-     	 <result name="input">/jsp/index.jsp</result>
+     	<result name="input" type="redirectAction">
+        	   <param name="actionName">index</param>
+        </result>
     </action>
     <action name="login" class="com.blog.action.user.LoginAction" >
 		<result type="samePage" name="success"/>
@@ -34,6 +36,19 @@
     <action name="disconnect" class="com.blog.action.user.LoginAction"  method="disconnect">
 		<result type="samePage" name="success"/>
     </action>
-    
+    <action name="user_page" class="com.blog.action.user.InfoPageAction" >
+        <result name="success">/jsp/user/user_page.jsp</result>
+        <result name="redirect" type="redirectAction">
+        	   <param name="actionName">index</param>
+        </result>
+    </action>
+    <action name="user_list" class="com.blog.action.user.InfoPageAction" method="listUsers">
+        <result name="success">/jsp/user/gestion_users.jsp</result>
+        <result name="redirect" type="redirectAction">
+        	   <param name="actionName">index</param>
+        </result>
+    </action>
+    <action name="user_list_modif_group_ajax" class="com.blog.action.user.InfoPageAction" method="modifGroup">
+    </action>
 </package>   
 </struts>

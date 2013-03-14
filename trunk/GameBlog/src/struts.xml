@@ -47,7 +47,7 @@
     <action name="user_list" class="com.blog.action.user.InfoPageAction" method="listUsers">
         <result name="success">/jsp/user/gestion_users.jsp</result>
         <result name="redirect" type="redirectAction">
-        	   <param name="actionName">index</param>
+        	   <param name="actionName">/GameBlog/index</param>
         </result>
     </action>
     <action name="user_list_modif_group_ajax" class="com.blog.action.user.InfoPageAction" method="modifGroup">
@@ -55,8 +55,19 @@
   
 </package>   
 <package name="com.blog.action.article"  namespace="/article" extends="struts-default">
-    <action name="new" >
-        <result>/jsp/article/new.jsp</result>
+    <action name="new" class="com.blog.action.article.ArticleAction" method="newArticle">
+        <result name="success">/jsp/article/new.jsp</result>
+        <result name="redirect" type="redirectAction">
+        	   <param name="actionName">/GameBlog/index</param>
+        </result>
+    </action>
+    <action name="valid_article" class="com.blog.action.article.ArticleSubmitAction" method="submit" >
+        <result name="success" type="redirectAction">
+        	   <param name="actionName">/GameBlog/index</param>
+        </result>
+        <result name="redirect" type="redirectAction">
+        	   <param name="actionName">/GameBlog/article/new</param>
+        </result>
     </action>
     <action name="view" >
         <result>/jsp/article/view.jsp</result>

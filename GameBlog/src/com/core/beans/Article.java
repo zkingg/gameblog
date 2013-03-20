@@ -3,22 +3,47 @@ package com.core.beans;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.ArrayList;
 import com.core.util.GetConnection;
+import com.core.util.Pagination;
+import com.exception.ArticleNotFoundException;
+import com.exception.UserNotFoundException;
 
 public class Article {
-	public Article(long id){
-		
+	private long id;
+	private int id_auteur;
+	private String titre;
+	private String article;
+	
+	
+	public Article(long id) throws ArticleNotFoundException{
+		try {
+			Statement stm = GetConnection.getConnection().createStatement();
+			ResultSet res = stm.executeQuery("select * from articles where id ="+id);
+			if(res.next()){
+				this.id = id;
+				this.id_auteur = res.getInt("auteur_id");
+				this.titre = res.getString("titre");
+				this.article = res.getString("article");
+			}else
+				throw new ArticleNotFoundException();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static boolean createArticle(long auteur_id,String titre,String contenu,int[] id_categories ){
 		try {
 			Statement stm = GetConnection.getConnection().createStatement();
-			if(stm.executeUpdate("insert into articles(auteur_id,titre,contenu,date) value("+auteur_id+","+titre+","+contenu+",now())") != 1 ){
+			System.out.println("insert into articles(auteur_id,titre,contenu,date) value("+auteur_id+",'"+titre+"','"+contenu+"',now())");
+			if(stm.executeUpdate("insert into articles(auteur_id,titre,contenu,date) values("+auteur_id+",'"+titre+"','"+contenu+"',now())",Statement.RETURN_GENERATED_KEYS) != 1 ){
 				return false;
 			}
 			
-			long id_article = stm.getGeneratedKeys().getLong(1) ;
+			ResultSet res = stm.getGeneratedKeys();
+			res.next();
+			long id_article = res.getLong(1) ;
 			
 			for(int id_categorie : id_categories){
 				if(stm.executeUpdate("insert into contenu_categorie(article_id,categorie_id) value("+id_article+","+id_categorie+")") != 1 ){
@@ -32,5 +57,25 @@ public class Article {
 		}
 		
 		return true;
+	}
+	
+	public static ArrayList<Article> getListArticle(int page){
+		ArrayList<Article> list = new ArrayList<Article>();
+		
+		try {
+			Statement stm = GetConnection.getConnection().createStatement();
+			ResultSet res = stm.executeQuery("select id from articles limit "+(page-1)*Pagination.ELEMENT_PAR_PAGE+","+Pagination.ELEMENT_PAR_PAGE);
+			while(res.next()){
+				list.add(new Article(res.getInt("id")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ArticleNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 }

@@ -28,10 +28,12 @@ public class ArticleSubmitAction extends ActionSupport {
 	public void setMessage(PopupMessage message){this.message=message;}
 
 
-
-	public String submit(){
+	@Override
+	public String execute(){
 		Map session = ActionContext.getContext().getSession();
 		System.out.println(titre+","+contenu);
+		if(id_categories == null) id_categories =new int[]{1,2,3};
+		
 		if(Article.createArticle(id_auteur, titre, contenu, id_categories)){
 			session.put("message", new PopupMessage("Article ajouté","success"));
 			return "success";

@@ -12,10 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.blog.action.user.InfoPageAction.Pagination;
 import com.core.util.GetConnection;
 import com.core.util.Mailler;
+import com.core.util.Pagination;
 import com.core.util.Util;
 import com.exception.AlreadyActivateAccountException;
 import com.exception.UserNotFoundException;

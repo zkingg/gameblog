@@ -21,6 +21,10 @@ body{
 	text-align:center;
 }
 
+.articles_zone{
+	text-align: left;
+}
+
 .alert{
 	position: absolute;
 	top: 20%;

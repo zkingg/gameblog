@@ -10,7 +10,7 @@ public class Pagination{
 		
 		public Pagination(int nb_element,int current_page){
 			this.nb_page=(int)(nb_element/ELEMENT_PAR_PAGE);
-			if(this.nb_page % ELEMENT_PAR_PAGE != 0) this.nb_page++;
+			if(nb_element % ELEMENT_PAR_PAGE != 0) this.nb_page++;
 			
 			this.current_page=current_page;
 			has_prev = current_page > 1? true:false;

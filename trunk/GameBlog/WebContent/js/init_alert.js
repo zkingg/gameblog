@@ -2,6 +2,9 @@ $(document).ready(function(){
 	$(".alert").alert();
 	$("#btnlogin").popover({placement:'bottom'}); 
 	
+	$(".popup_alert").fadeIn(400).delay(4000).fadeOut(400);//fermeture auto des popup
+	
+	
 	$("select[name=group_select]").change(function(){
 		var _id = $(this).attr('id');
 		var _id_group= $(this,'option:selected').val();

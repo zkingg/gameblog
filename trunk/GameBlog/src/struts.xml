@@ -15,7 +15,7 @@
     <!-- Action de l'action de rÃ©ference -->   
     <default-action-ref name="index"/> 
     
-    <action name="index" class="com.blog.index.IndexController" method="list">
+    <action name="index" class="com.blog.index.IndexAction">
      	 <result name="index">/jsp/index.jsp</result>
     </action>
 	

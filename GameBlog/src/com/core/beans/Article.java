@@ -7,14 +7,17 @@ import java.util.ArrayList;
 import com.core.util.GetConnection;
 import com.core.util.Pagination;
 import com.exception.ArticleNotFoundException;
-import com.exception.UserNotFoundException;
 
 public class Article {
 	private long id;
-	private int id_auteur;
+	private int auteur_id;
 	private String titre;
 	private String article;
 	
+	public long getId(){return this.id;}
+	public int getAuteur_id(){return this.auteur_id;}
+	public String getTitre(){return this.titre;}
+	public String getArticle(){return this.article;}
 	
 	public Article(long id) throws ArticleNotFoundException{
 		try {
@@ -22,9 +25,9 @@ public class Article {
 			ResultSet res = stm.executeQuery("select * from articles where id ="+id);
 			if(res.next()){
 				this.id = id;
-				this.id_auteur = res.getInt("auteur_id");
+				this.auteur_id = res.getInt("auteur_id");
 				this.titre = res.getString("titre");
-				this.article = res.getString("article");
+				this.article = res.getString("contenu");
 			}else
 				throw new ArticleNotFoundException();
 		} catch (SQLException e) {
@@ -77,5 +80,18 @@ public class Article {
 		}
 		
 		return list;
+	}
+	
+	public static int getNbArticles(){
+		try {
+			Statement stm = GetConnection.getConnection().createStatement();
+			ResultSet res = stm.executeQuery("select id from articles");
+			res.last();
+			return res.getRow();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

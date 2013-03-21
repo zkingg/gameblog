@@ -15,7 +15,7 @@
 			</ul>
 			<div class="nav pull-right">
 				<s:if test="#session.user == null">
-					<li class="pull-right"><a id="btnlogin" data-toggle="popover" title="Connexion" data-content="<jsp:include page='/jsp/layout/login_form.jsp' />" ><i class="icon-user icon-white"></i>  Se connecter</a></li>		
+					<li class="pull-right"><a id="btnlogin" data-toggle="popover" title="Connexion" data-content="<jsp:include page='/jsp/layout/items/login_form.jsp' />" ><i class="icon-user icon-white"></i>  Se connecter</a></li>		
 				</s:if>
 				<s:else>
 					<s:if test="#session.user.groupe == 'redacteur' || #session.user.groupe =='admin' ">

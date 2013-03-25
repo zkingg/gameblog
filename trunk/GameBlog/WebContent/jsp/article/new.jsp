@@ -20,7 +20,7 @@
 					<s:form method="post" action="/article/valid_article" valid="true">
 						<h1><s:text name="article.new.titre" /></h1>
 						<s:textfield name="titre" id="titre" label="%{getText('article.new.form.titre')}" labelposition="left"/>
-						<s:textarea name="article" id="article" rows="10" label="%{getText('article.new.form.article')}"
+						<s:textarea key="articletext" rows="10" label="%{getText('article.new.form.article')}"
 									labelposition="left" />
 						<s:hidden name="id_auteur" value="%{#session.user.id}" />
 						<s:submit value = "%{getText('article.new.form.submit')}"></s:submit>

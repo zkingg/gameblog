@@ -13,11 +13,13 @@ public class Article {
 	private int auteur_id;
 	private String titre;
 	private String article;
+	private String date;
 	
 	public long getId(){return this.id;}
 	public int getAuteur_id(){return this.auteur_id;}
 	public String getTitre(){return this.titre;}
 	public String getArticle(){return this.article;}
+	public String getDate(){return this.date;}
 	
 	public Article(long id) throws ArticleNotFoundException{
 		try {
@@ -28,6 +30,7 @@ public class Article {
 				this.auteur_id = res.getInt("auteur_id");
 				this.titre = res.getString("titre");
 				this.article = res.getString("contenu");
+				this.date = res.getString("date");
 			}else
 				throw new ArticleNotFoundException();
 		} catch (SQLException e) {
@@ -67,7 +70,7 @@ public class Article {
 		
 		try {
 			Statement stm = GetConnection.getConnection().createStatement();
-			ResultSet res = stm.executeQuery("select id from articles limit "+(page-1)*Pagination.ELEMENT_PAR_PAGE+","+Pagination.ELEMENT_PAR_PAGE);
+			ResultSet res = stm.executeQuery("select id from articles order by date desc limit "+(page-1)*Pagination.ELEMENT_PAR_PAGE+","+Pagination.ELEMENT_PAR_PAGE);
 			while(res.next()){
 				list.add(new Article(res.getInt("id")));
 			}

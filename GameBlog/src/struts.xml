@@ -48,7 +48,7 @@
         <result name="success">/jsp/user/gestion_users.jsp</result>
         <result name="redirect" type="redirectAction">
         	   <param name="actionName">index</param>
-        	    <param name="namespace">/GameBlog</param>
+        	    <param name="namespace">/</param>
         </result>
     </action>
     <action name="user_list_modif_group_ajax" class="com.blog.action.user.InfoPageAction" method="modifGroup">
@@ -60,21 +60,25 @@
         <result name="success">/jsp/article/new.jsp</result>
         <result name="redirect" type="redirectAction">
         	   <param name="actionName">index</param>
-        	    <param name="namespace">/GameBlog</param>
+        	    <param name="namespace">/</param>
         </result>
     </action>
     <action name="valid_article" class="com.blog.action.article.ArticleSubmitAction"  >
         <result name="success" type="redirectAction">
         	   <param name="actionName">index</param>
-            	<param name="namespace">/GameBlog</param>
+            	<param name="namespace">/</param>
         </result>
         <result name="redirect" type="redirectAction">
         	   <param name="actionName">new</param>
         	   <param name="namespace">/GameBlog/article</param>
         </result>
     </action>
-    <action name="view" >
-        <result>/jsp/article/view.jsp</result>
+    <action name="view" class="com.blog.action.article.ArticleAction" method="view" >
+        <result name="success">/jsp/article/view.jsp</result>
+         <result name="redirect" type="redirectAction">
+        	   <param name="actionName">index</param>
+        	    <param name="namespace">/</param>
+        </result>
     </action>
     <action name="edit" >
         <result>/jsp/article/edit.jsp</result>

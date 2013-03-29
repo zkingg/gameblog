@@ -1,5 +1,6 @@
 package com.blog.action.article;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 import com.core.beans.Article;
+import com.core.beans.Categorie;
 import com.core.util.PopupMessage;
 import com.exception.ArticleNotFoundException;
 import com.opensymphony.xwork2.ActionContext;
@@ -20,8 +22,13 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware{
 	private Article article;
 	public Article getArticle(){return this.article;}
 	
+	private ArrayList<Categorie> categories;
+	public ArrayList<Categorie> getCategories(){return this.categories;}
+	
 	public String newArticle(){
 		Map session = ActionContext.getContext().getSession();
+		categories = Categorie.getCategories();
+		
 		if(! session.containsKey("user")){
 			session.put("message",new PopupMessage("Vous devez &ecirc;tre connecter pour acceder a cette page ...", "error"));
 			return "redirect";

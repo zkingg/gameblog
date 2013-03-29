@@ -68,10 +68,10 @@
         	   <param name="actionName">index</param>
             	<param name="namespace">/</param>
         </result>
-        <result name="redirect" type="redirectAction">
-        	   <param name="actionName">new</param>
-        	   <param name="namespace">/GameBlog/article</param>
-        </result>
+        <result name="redirect" >/jsp/article/new.jsp</result>
+        	   <!--  <param name="actionName">new</param>
+        	   <param name="namespace">/article</param>
+        </result>-->
     </action>
     <action name="view" class="com.blog.action.article.ArticleAction" method="view" >
         <result name="success">/jsp/article/view.jsp</result>
@@ -82,6 +82,25 @@
     </action>
     <action name="edit" >
         <result>/jsp/article/edit.jsp</result>
+    </action>
+</package>
+<package name="com.blog.action.categorie"  namespace="/categorie" extends="struts-default">
+    <action name="new" class="com.blog.action.categorie.CategorieAction" method="newCategorie">
+        <result name="success">/jsp/categorie/new.jsp</result>
+        <result name="redirect" type="redirectAction">
+        	   <param name="actionName">index</param>
+        	    <param name="namespace">/</param>
+        </result>
+    </action>
+    <action name="valid" class="com.blog.action.categorie.CategorieAction" method="validCategorie">
+        <result name="success" type="redirectAction">
+        	   <param name="actionName">index</param>
+        	    <param name="namespace">/</param>
+        </result>
+        <result name="redirect" type="redirectAction">
+        	   <param name="actionName">new</param>
+        	    <param name="namespace">/categorie</param>
+        </result>
     </action>
 </package>
 </struts>

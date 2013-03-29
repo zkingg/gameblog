@@ -39,7 +39,7 @@ public class Article {
 		}
 	}
 	
-	public static boolean createArticle(long auteur_id,String titre,String contenu,int[] id_categories ){
+	public static boolean createArticle(long auteur_id,String titre,String contenu,String[] id_categories ){
 		try {
 			Statement stm = GetConnection.getConnection().createStatement();
 			System.out.println("insert into articles(auteur_id,titre,contenu,date) value("+auteur_id+",'"+titre+"','"+contenu+"',now())");
@@ -51,7 +51,7 @@ public class Article {
 			res.next();
 			long id_article = res.getLong(1) ;
 			
-			for(int id_categorie : id_categories){
+			for(String id_categorie : id_categories){
 				if(stm.executeUpdate("insert into contenu_categorie(article_id,categorie_id) value("+id_article+","+id_categorie+")") != 1 ){
 					return false;
 				}

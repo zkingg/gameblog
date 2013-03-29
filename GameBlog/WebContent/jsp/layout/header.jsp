@@ -27,7 +27,37 @@
 			</div>
 		</div>
 	</div>
-	<h1>Header</h1>
+	<!-- Caroussel -->
+	<div id="myCarousel" class="carousel slide">
+		<!-- Carousel items -->
+		<div class="carousel-inner">
+			<div class="active item">
+				<img src="/GameBlog/img/dragon.jpg" alt="" class="carousel-img"/>
+				<div class="carousel-caption">
+					<h4>First Thumbnail label</h4>
+					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+				</div>
+			</div>
+			<div class="item">
+				<img src="/GameBlog/img/color.jpg" alt="" class="carousel-img"/>
+				<div class="carousel-caption">
+					<h4>Second Thumbnail label</h4>
+					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+				</div>
+			</div>
+			<div class="item">
+				<img src="/GameBlog/img/ME3.jpg" alt="" class="carousel-img"/>
+				<div class="carousel-caption">
+					<h4>Third Thumbnail label</h4>
+					<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+				</div>
+			</div>
+		</div>
+		<!-- Carousel nav -->
+		<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+		<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+	</div>
+	
 	<!--  Popup Message -->
 	<s:if test="message!=null">
 	 	<s:if test="message.type =='error'">

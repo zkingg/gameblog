@@ -39,12 +39,15 @@
 					  	</div>
 					  	<s:if test="#session.user.groupe == 'redacteur' || #session.user.groupe =='admin' " >
 						  	<div class="tab-pane" id="articles">
-						  		Gestion des articles
+						  		<h3>Gestion des articles:</h3>
+						  		<a href="/GameBlog/article/list">Listes articles</a>
+						  		<h3>Gestion des catégories:</h3>
+						  		<a href="/GameBlog/categorie/list">Listes catégories</a>
 							</div>
 						</s:if>
 						<s:if test="#session.user.groupe =='admin' " >
 						  	<div class="tab-pane" id="administration">
-						  		Gestion users:<br/>
+						  		<h3>Gestion users:</h3>
 						  		<a href="/GameBlog/user_list" >Liste utilisateurs</a>
 						  	</div>
 					  	</s:if>

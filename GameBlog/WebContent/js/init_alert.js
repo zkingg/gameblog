@@ -26,4 +26,24 @@ $(document).ready(function(){
 	});
 	
 	
+	$(".article_delete").click(function(){
+		var id = $(this).attr("data");
+		$(".valid_article_delete").attr("data",id);
+		$("#ValidModal").modal('toggle');
+	});
+	
+	$(".valid_article_delete").click(function(){
+		var _id = $(this).attr("data");
+		$.ajax({
+			type: 'POST' ,
+			url: '/GameBlog/article/delete',
+			data: {
+				id: _id,
+			},
+			success: function(data){location.reload();},
+			error: function(data){alert(data);},
+			complete: function(){ $("#ValidModal").modal('hide'); }
+				
+		});	
+	});
 });

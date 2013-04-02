@@ -154,4 +154,42 @@ public class User {
 		return 0;
 	}
 	
+	public static boolean delete(int id){
+		try {
+			Statement stm = GetConnection.getConnection().createStatement();
+			if(stm.executeUpdate("delete from articles where id="+id) == 0)
+				return false;
+			
+			stm.executeUpdate("delete from contenu_categorie where article_id="+id);//retrait categorie
+			
+			return true;
+		} catch (SQLException e) {e.printStackTrace();}
+		
+		return false;
+	}
+	
+	public boolean isAdmin(){
+		return this.groupe.equals("admin")? true : false;
+	}
+	
+	public boolean isRedacteur(){
+		if(groupe.equals("admin") || groupe.equals("redacteur"))
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isUser(){
+		if(groupe.equals("admin") ||
+			groupe.equals("redacteur") ||
+			groupe.equals("user"))
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isBanni(){
+		return this.groupe.equals("banni")? true : false;
+	}
+	
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.core.util.GetConnection;
 import com.core.util.Pagination;
 import com.exception.ArticleNotFoundException;
+import com.exception.UserNotFoundException;
 
 public class Article {
 	private long id;
@@ -14,27 +15,48 @@ public class Article {
 	private String titre;
 	private String article;
 	private String date;
+	private User auteur;
+	private ArrayList<Categorie> categories;
+	private String str_categories;
 	
 	public long getId(){return this.id;}
 	public int getAuteur_id(){return this.auteur_id;}
 	public String getTitre(){return this.titre;}
 	public String getArticle(){return this.article;}
 	public String getDate(){return this.date;}
+	public User getAuteur(){return this.auteur;}
+	public ArrayList<Categorie> getCategories(){return this.categories;}
+	public String getStr_categories(){return this.str_categories;}
 	
 	public Article(long id) throws ArticleNotFoundException{
 		try {
 			Statement stm = GetConnection.getConnection().createStatement();
-			ResultSet res = stm.executeQuery("select * from articles where id ="+id);
+			ResultSet res = stm.executeQuery("select * from articles a join users u on(a.auteur_id=u.id) where a.id ="+id);
 			if(res.next()){
 				this.id = id;
 				this.auteur_id = res.getInt("auteur_id");
 				this.titre = res.getString("titre");
 				this.article = res.getString("contenu");
 				this.date = res.getString("date");
+				this.auteur = new User(this.auteur_id);
+				
+				res = stm.executeQuery("select categorie_id from contenu_categorie where article_id="+this.id);
+				categories = new ArrayList<Categorie>();
+				str_categories = "";
+				while(res.next()){
+					if(!str_categories.equals(""))//chech for separator
+						str_categories += ",";
+					
+					Categorie c = new Categorie(res.getInt("categorie_id"));
+					categories.add(c);
+					str_categories += c.getNom();
+				}
+				System.out.println(str_categories);
 			}else
 				throw new ArticleNotFoundException();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UserNotFoundException e) {
 			e.printStackTrace();
 		}
 	}

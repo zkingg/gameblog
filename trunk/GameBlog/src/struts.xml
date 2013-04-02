@@ -80,8 +80,17 @@
         	    <param name="namespace">/</param>
         </result>
     </action>
+    <action name="list" class="com.blog.action.article.ArticleAction" method="list" >
+        <result name="success">/jsp/article/list.jsp</result>
+         <result name="redirect" type="redirectAction">
+        	   <param name="actionName">index</param>
+        	    <param name="namespace">/</param>
+        </result>
+    </action>
     <action name="edit" >
         <result>/jsp/article/edit.jsp</result>
+    </action>
+    <action name="delete" class="com.blog.action.article.ArticleAction" method="delete" >
     </action>
 </package>
 <package name="com.blog.action.categorie"  namespace="/categorie" extends="struts-default">

@@ -56,6 +56,9 @@
   
 </package>   
 <package name="com.blog.action.article"  namespace="/article" extends="struts-default">
+    <result-types>
+		<result-type name="samePage" class="com.blog.redirect.RedirectSamePage" />
+	</result-types>
     <action name="new" class="com.blog.action.article.ArticleAction" method="newArticle">
         <result name="success">/jsp/article/new.jsp</result>
         <result name="redirect" type="redirectAction">
@@ -87,8 +90,20 @@
         	    <param name="namespace">/</param>
         </result>
     </action>
-    <action name="edit" >
-        <result>/jsp/article/edit.jsp</result>
+    <action name="edit" class="com.blog.action.article.ArticleAction" method="edit" >
+        <result name="success" >/jsp/article/edit.jsp</result>
+        <result type="samePage" name="redirect"/>
+        <result name="index" type="redirectAction">
+        	   <param name="actionName">index</param>
+        	    <param name="namespace">/</param>
+        </result>
+    </action>
+    <action name="valid_edit" class="com.blog.action.article.ArticleAction" method="validEdit" >
+        <result name="redirect" >/jsp/article/edit.jsp</result>
+        <result name="success" type="redirectAction">
+        	   <param name="actionName">list</param>
+        	    <param name="namespace">/article</param>
+        </result>
     </action>
     <action name="delete" class="com.blog.action.article.ArticleAction" method="delete" >
     </action>

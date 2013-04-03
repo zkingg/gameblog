@@ -40,6 +40,26 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 	private Pagination pagination;
 	public Pagination getPagination(){return this.pagination;}
 	
+	private PopupMessage message;
+	public PopupMessage getMessage(){return this.message;}
+	
+	/** form return value **/
+	private long id;
+	private String titre;
+	private String articletext;
+	private String[] id_categories;
+	
+	public long getId(){return this.id;}
+	public void setId(long id){this.id = id;}
+	public String getTitre() {return titre;}
+	public void setTitre(String titre) {this.titre = titre;}
+	public String getArticletext() {return articletext;}
+	public void setArticletext(String contenu) {this.articletext = contenu;}
+	public String[] getId_categories() {return id_categories;}
+	public void setId_categories(String[] id_categories) {	this.id_categories = id_categories;}
+	/** **/
+
+	
 	public String newArticle(){
 		Map session = ActionContext.getContext().getSession();
 		categories = Categorie.getCategories();
@@ -70,6 +90,11 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 	
 	public String list(){
 		Map session = ActionContext.getContext().getSession();
+		
+		if(session.containsKey("message")){
+			message = (PopupMessage) session.get("message");
+			session.remove("message");
+		}
 		
 		if(! session.containsKey("user")){
 			session.put("message",new PopupMessage("Vous devez &ecirc;tre connecter pour acceder a cette page ...", "error"));
@@ -103,5 +128,49 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		}
 		
 		return null;
+	}
+	
+	public String edit(){
+		categories = Categorie.getCategories();
+		String id = req.getParameter("id");
+		Map session = ActionContext.getContext().getSession();
+		
+		if(! session.containsKey("user")){
+			session.put("message",new PopupMessage("Vous devez &ecirc;tre connecter pour acceder a cette page ...", "error"));
+			return "index";
+		}else{
+			User user =(User) session.get("user");
+			if(! user.isRedacteur()){
+				session.put("message",new PopupMessage("Vous n'avez pas le droit d'acceder a cette page ...", "error"));
+				return "redirect";
+			}
+		
+			try {
+				article = new Article(Long.parseLong(id));
+				return "success";
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				session.put("message", new PopupMessage("Une erreur est intervenue lors du chargement de la page", "error"));
+				return "redirect";
+			}
+		}
+	}
+	
+	public String validEdit(){
+		Map session = ActionContext.getContext().getSession(); 
+		if(id_categories == null)
+			id_categories = new String[]{};
+			
+		if(Article.edit(id,titre,articletext,id_categories)){
+			session.put("message",new PopupMessage("Information mise a jour.", "info"));
+			return "success";
+		}
+			
+		else{
+			message = new PopupMessage("Echec mise a jour article, voir log.", "error");
+			return "redirect";
+		}
+			
 	}
 }

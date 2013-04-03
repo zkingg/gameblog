@@ -54,11 +54,12 @@ public class User {
 	public void setDateActivation(String login){this.dateActivation = dateActivation;}
 	
 	public static boolean createUser(String login,String mdp,String email){
+		Statement stm=null;
 		try {
-			Statement stm = GetConnection.getConnection().createStatement();
+			stm = GetConnection.getConnection().createStatement();
 			DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
 			String key = Util.md5(login+date.format(new Date()));
-			System.out.println(new String(key));
+			//System.out.println(new String(key));
 			if(stm.executeUpdate("insert into users(login,mdp,email,cle_activation) values('"+login+"','"+Util.md5(mdp)+"','"+email+"','"+key+"')") == 0 ){
 				return false;
 			}
@@ -72,12 +73,18 @@ public class User {
 			}	
 		}
 		catch (SQLException e) {e.printStackTrace();}
+		finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
+		}
+		
 		return false;
 	}
 	
 	public static boolean activateUser(String key) throws AlreadyActivateAccountException{
+		Statement stm = null;
 		try {
-			Statement stm = GetConnection.getConnection().createStatement();
+			stm = GetConnection.getConnection().createStatement();
 			ResultSet res = stm.executeQuery("select * from users where cle_activation='"+key+"'");
 			if(! res.next())
 				return false;
@@ -94,12 +101,17 @@ public class User {
 			
 		}
 		catch (SQLException e) {e.printStackTrace();}
+		finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
+		}
 		return false;
 	}
 	
 	public static long login(String login,String mdp){
+		PreparedStatement stm = null;
 		try {
-			PreparedStatement stm = GetConnection.getConnection().prepareStatement("select u.id " +
+			stm = GetConnection.getConnection().prepareStatement("select u.id " +
 																					"from users u " +
 																					"join groups g on (u.id_group = g.id) " +
 																					"where mdp = ? and login=? and date_activation is not null " +
@@ -114,6 +126,9 @@ public class User {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return -1;
+		}finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
 		}
 	}
 	
@@ -123,9 +138,9 @@ public class User {
 	
 	public static ArrayList<User> getListUser(int page){
 		ArrayList<User> list = new ArrayList<User>();
-		
+		Statement stm = null;
 		try {
-			Statement stm = GetConnection.getConnection().createStatement();
+			stm = GetConnection.getConnection().createStatement();
 			ResultSet res = stm.executeQuery("select id from users limit "+(page-1)*Pagination.ELEMENT_PAR_PAGE+","+Pagination.ELEMENT_PAR_PAGE);
 			while(res.next()){
 				list.add(new User(res.getInt("id")));
@@ -136,34 +151,48 @@ public class User {
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
 		}
 		
 		return list;
 	}
 
 	public static int getNbAccount() {
+		Statement stm = null;
 		try {
-			Statement stm = GetConnection.getConnection().createStatement();
+			stm = GetConnection.getConnection().createStatement();
 			ResultSet res = stm.executeQuery("select id from users");
 			res.last();
 			return res.getRow();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
 		}
+		
 		return 0;
 	}
 	
 	public static boolean delete(int id){
+		Statement stm = null;
 		try {
-			Statement stm = GetConnection.getConnection().createStatement();
+			stm = GetConnection.getConnection().createStatement();
 			if(stm.executeUpdate("delete from articles where id="+id) == 0)
 				return false;
 			
 			stm.executeUpdate("delete from contenu_categorie where article_id="+id);//retrait categorie
 			
 			return true;
-		} catch (SQLException e) {e.printStackTrace();}
+		}
+		catch (SQLException e) {e.printStackTrace();}
+		finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
+		}
 		
 		return false;
 	}

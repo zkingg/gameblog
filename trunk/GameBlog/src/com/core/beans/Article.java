@@ -1,5 +1,6 @@
 package com.core.beans;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,8 +30,9 @@ public class Article {
 	public String getStr_categories(){return this.str_categories;}
 	
 	public Article(long id) throws ArticleNotFoundException{
+		Statement stm = null;
 		try {
-			Statement stm = GetConnection.getConnection().createStatement();
+			stm = GetConnection.getConnection().createStatement();
 			ResultSet res = stm.executeQuery("select * from articles a join users u on(a.auteur_id=u.id) where a.id ="+id);
 			if(res.next()){
 				this.id = id;
@@ -51,20 +53,24 @@ public class Article {
 					categories.add(c);
 					str_categories += c.getNom();
 				}
-				System.out.println(str_categories);
+				//System.out.println(str_categories);
 			}else
 				throw new ArticleNotFoundException();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (UserNotFoundException e) {
 			e.printStackTrace();
+		}finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
 		}
 	}
 	
 	public static boolean createArticle(long auteur_id,String titre,String contenu,String[] id_categories ){
+		Statement stm = null;
 		try {
-			Statement stm = GetConnection.getConnection().createStatement();
-			System.out.println("insert into articles(auteur_id,titre,contenu,date) value("+auteur_id+",'"+titre+"','"+contenu+"',now())");
+			stm = GetConnection.getConnection().createStatement();
+			//System.out.println("insert into articles(auteur_id,titre,contenu,date) value("+auteur_id+",'"+titre+"','"+contenu+"',now())");
 			if(stm.executeUpdate("insert into articles(auteur_id,titre,contenu,date) values("+auteur_id+",'"+titre+"','"+contenu+"',now())",Statement.RETURN_GENERATED_KEYS) != 1 ){
 				return false;
 			}
@@ -82,6 +88,9 @@ public class Article {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
+		}finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
 		}
 		
 		return true;
@@ -89,9 +98,9 @@ public class Article {
 	
 	public static ArrayList<Article> getListArticle(int page){
 		ArrayList<Article> list = new ArrayList<Article>();
-		
+		Statement stm = null;
 		try {
-			Statement stm = GetConnection.getConnection().createStatement();
+			stm = GetConnection.getConnection().createStatement();
 			ResultSet res = stm.executeQuery("select id from articles order by date desc limit "+(page-1)*Pagination.ELEMENT_PAR_PAGE+","+Pagination.ELEMENT_PAR_PAGE);
 			while(res.next()){
 				list.add(new Article(res.getInt("id")));
@@ -102,21 +111,76 @@ public class Article {
 		} catch (ArticleNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
 		}
 		
 		return list;
 	}
 	
 	public static int getNbArticles(){
+		Statement stm = null;
 		try {
-			Statement stm = GetConnection.getConnection().createStatement();
+			stm = GetConnection.getConnection().createStatement();
 			ResultSet res = stm.executeQuery("select id from articles");
 			res.last();
 			return res.getRow();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
+		}	
+		
 		return 0;
+	}
+	
+	public boolean containtCategorieId(int id){
+		for(Categorie c : this.categories){
+			if(c.getid() == id)
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public static boolean edit(long id,String titre,String contenu,String[] id_categories ) {
+		PreparedStatement stm = null;
+		try {
+			System.out.println(id+","+titre+","+contenu);
+			stm = GetConnection.getConnection().prepareStatement("update articles set titre=? ,contenu=? where id=? ");
+			System.out.println(02);
+			stm.setString(1, titre);
+			stm.setString(2, contenu);
+			stm.setLong(3, id);
+			System.out.println(03);
+			stm.execute();
+			stm.close();
+			System.out.println(1);
+			//categories
+			stm = GetConnection.getConnection().prepareStatement("delete from contenu_categorie where article_id=?");
+			stm.setLong(1, id);
+			stm.execute();
+			stm.close();
+			System.out.println(2);
+			for(String id_c : id_categories){
+				stm = GetConnection.getConnection().prepareStatement("insert into contenu_categorie(categorie_id,article_id) value(?,?)");
+				stm.setLong(1, Long.parseLong(id_c));
+				stm.setLong(2, id);
+				stm.execute();
+				stm.close();
+			}
+				System.out.println(3);
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
+		}	
 	}
 }

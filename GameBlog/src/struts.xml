@@ -126,5 +126,17 @@
         	    <param name="namespace">/categorie</param>
         </result>
     </action>
+    
+  <action name="list" class="com.blog.action.categorie.CategorieAction" method="list">
+        <result name="success">/jsp/categorie/list.jsp</result>
+        <result name="redirect" type="redirectAction">
+        	   <param name="actionName">index</param>
+        	    <param name="namespace">/</param>
+        </result>
+    </action>
+    <action name="edit" class="com.blog.action.categorie.CategorieAction" method="edit">
+    </action>
+    <action name="delete" class="com.blog.action.categorie.CategorieAction" method="delete">
+    </action>
 </package>
 </struts>

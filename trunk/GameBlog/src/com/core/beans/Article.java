@@ -183,4 +183,24 @@ public class Article {
 			catch (SQLException e) {}
 		}	
 	}
+	
+	public static boolean delete(int id){
+		Statement stm = null;
+		try {
+			stm = GetConnection.getConnection().createStatement();
+			if(stm.executeUpdate("delete from articles where id="+id) == 0)
+				return false;
+			
+			stm.executeUpdate("delete from contenu_categorie where article_id="+id);//retrait categorie
+			
+			return true;
+		}
+		catch (SQLException e) {e.printStackTrace();}
+		finally{
+			try {if(stm!=null) stm.close();} 
+			catch (SQLException e) {}
+		}
+		
+		return false;
+	}
 }

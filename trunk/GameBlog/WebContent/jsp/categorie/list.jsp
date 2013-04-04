@@ -10,7 +10,7 @@
 	type="text/css" />
 <link rel="stylesheet" href="/GameBlog/css/style.css" type="text/css" />
 
-<title>Liste des Articles</title>
+<title>Liste des Catégorie</title>
 </head>
 <body>
 	<div class="contenu">
@@ -19,11 +19,11 @@
 		<!-- Modal -->
 		<div id="ValidModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-body">
-				<p><s:text name="article.delete.confirm" /></p>
+				<p><s:text name="categorie.delete.confirm" /></p>
 			</div>
 			<div class="modal-footer">
 				<button class="btn" data-dismiss="modal" aria-hidden="true"><s:text name="article.delete.cancel" /></button>
-				<button class="btn btn-primary valid_article_delete" data=""><s:text name="article.delete.validate" /></button>
+				<button class="btn btn-primary valid_categorie_delete" data=""><s:text name="article.delete.validate" /></button>
 			</div>
 		</div>
 		
@@ -33,23 +33,17 @@
 					<table class="table table-striped">
 						<tr>
 							<th>#</th>
-							<th>Titre</th>
 							<th>Action</th>
-							<th>Date</th>
-							<th>Auteur</th>
-							<th>Catégories</th>
+							<th>Nom</th>
 						</tr>
-						<s:iterator value="articles">
+						<s:iterator value="categories">
 							<tr>
 								<td><s:property value="id"/></td>
-								<td><s:property value="titre"/></td>
 								<td>
-									<a href="/GameBlog/article/edit?id=<s:property value="id"/>"><i class="icon-pencil"></i></a> 
-									<i class="icon-remove article_delete" data="<s:property value="id"/>"></i>
+									<i class="icon-pencil categorie_edit" data="<s:property value="id"/>"></i>
+									<i class="icon-remove categorie_delete" data="<s:property value="id"/>"></i>
 								</td>
-								<td><s:property value="date"/></td>
-								<td><s:property value="auteur.login"/></td>
-								<td><s:property value="str_categories" /></td>
+								<td id="categorie_<s:property value="id"/>"><s:property value="nom"/></td>
 							</tr>
 						</s:iterator>
 					</table>

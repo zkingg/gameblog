@@ -116,7 +116,7 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 	public String delete(){
 		String id = req.getParameter("id");
 		try {
-			if(User.delete(Integer.parseInt(id)))	
+			if(Article.delete(Integer.parseInt(id)))	
 				resp.getWriter().write("ok");
 			else
 				resp.getWriter().write("nok");

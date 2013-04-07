@@ -1,5 +1,9 @@
 package com.core.util;
 
+/**
+ * @author LUFFY
+ * Classe utilitaire qui gére la pagination
+ */
 public class Pagination{
 		public static final int ELEMENT_PAR_PAGE = 10;
 		public int nb_page;

@@ -4,8 +4,17 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author LUFFY
+ * Classe utilitaire
+ */
 public class Util {
 
+	/**
+	 * Créer un md5 sur 32 caractére
+	 * @param s : string a encoder
+	 * @return hashtext : md5 de la chaine passée 
+	 */
 	public static String md5(String s) {
 		MessageDigest m;
 		try {

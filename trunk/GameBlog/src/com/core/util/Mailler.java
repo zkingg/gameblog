@@ -9,6 +9,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * @author LUFFY
+ * Classe utilitaire pour envoyer des mails.
+ */
 public class Mailler {
 	private static String from = "gameblog.automail@gmail.com";
 	private static String password = "gameblog.automail0";
@@ -22,6 +26,12 @@ public class Mailler {
 		properties.put("mail.smtp.port", "465");
 	}
 
+	/**
+	 * Envoi d'un mail
+	 * @param subject : titre
+	 * @param body : corps message
+	 * @param to : destinataire(s)
+	 */
 	public static void sendMail(String subject, String body, String to) {
 		try {
 			Session session = Session.getDefaultInstance(properties,

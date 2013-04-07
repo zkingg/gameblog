@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.blog.action.TemplateAction;
 import com.core.beans.Article;
 import com.core.beans.Categorie;
 import com.core.beans.User;
@@ -19,29 +20,13 @@ import com.exception.ArticleNotFoundException;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class ArticleAction extends ActionSupport implements ServletRequestAware,ServletResponseAware{
+public class ArticleAction extends TemplateAction implements ServletRequestAware,ServletResponseAware{
 	private HttpServletRequest req;
-	@Override
-	public void setServletRequest(HttpServletRequest arg0) {req = arg0;}
-	
 	private HttpServletResponse resp;
-	@Override
-	public void setServletResponse(HttpServletResponse arg0) {resp = arg0;}
-	
 	private Article article;
-	public Article getArticle(){return this.article;}
-	
 	private ArrayList<Categorie> categories;
-	public ArrayList<Categorie> getCategories(){return this.categories;}
-	
 	private ArrayList<Article> articles;
-	public ArrayList<Article> getArticles(){return this.articles;}
-	
 	private Pagination pagination;
-	public Pagination getPagination(){return this.pagination;}
-	
-	private PopupMessage message;
-	public PopupMessage getMessage(){return this.message;}
 	
 	/** form return value **/
 	private long id;
@@ -49,6 +34,15 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 	private String articletext;
 	private String[] id_categories;
 	
+	/** get/set **/
+	@Override 
+	public void setServletRequest(HttpServletRequest arg0) {req = arg0;}
+	@Override
+	public void setServletResponse(HttpServletResponse arg0) {resp = arg0;}
+	public Article getArticle(){return this.article;}
+	public ArrayList<Categorie> getCategories(){return this.categories;}
+	public ArrayList<Article> getArticles(){return this.articles;}	
+	public Pagination getPagination(){return this.pagination;}
 	public long getId(){return this.id;}
 	public void setId(long id){this.id = id;}
 	public String getTitre() {return titre;}
@@ -57,9 +51,12 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 	public void setArticletext(String contenu) {this.articletext = contenu;}
 	public String[] getId_categories() {return id_categories;}
 	public void setId_categories(String[] id_categories) {	this.id_categories = id_categories;}
-	/** **/
-
 	
+	/**
+	 * Action le formulaire d'un nouvel article
+	 * @return redirect => index
+	 * @return success => article/new.jsp	 
+	 */
 	public String newArticle(){
 		Map session = ActionContext.getContext().getSession();
 		categories = Categorie.getCategories();
@@ -72,6 +69,11 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		}
 	}
 	
+	/**
+	 * Action pour voir un article en particulier
+	 * @return redirect => index
+	 * @return success => article/view.jsp	
+	 */
 	public String view(){
 		Map session = ActionContext.getContext().getSession();
 		
@@ -88,14 +90,14 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		return "success";
 	}
 	
+	/**
+	 * Action pour avoir la liste des article
+	 * @return redirect => index
+	 * @return success => article/list.jsp	
+	 */
 	public String list(){
 		Map session = ActionContext.getContext().getSession();
-		
-		if(session.containsKey("message")){
-			message = (PopupMessage) session.get("message");
-			session.remove("message");
-		}
-		
+				
 		if(! session.containsKey("user")){
 			session.put("message",new PopupMessage("Vous devez &ecirc;tre connecter pour acceder a cette page ...", "error"));
 			return "redirect";
@@ -113,6 +115,10 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		}
 	}
 	
+	/**
+	 * Action pour supprimer un article (Ajax)
+	 * @return null
+	 */
 	public String delete(){
 		String id = req.getParameter("id");
 		try {
@@ -130,6 +136,12 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		return null;
 	}
 	
+	/**
+	 * Action pour afficher la page d'edition des article
+	 * @return index => index
+	 * @return success => article/edit.jsp	
+	 * @return redirect => retour dernière page
+	 */
 	public String edit(){
 		categories = Categorie.getCategories();
 		String id = req.getParameter("id");
@@ -142,14 +154,13 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 			User user =(User) session.get("user");
 			if(! user.isRedacteur()){
 				session.put("message",new PopupMessage("Vous n'avez pas le droit d'acceder a cette page ...", "error"));
-				return "redirect";
+				return "index";
 			}
 		
 			try {
 				article = new Article(Long.parseLong(id));
 				return "success";
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				session.put("message", new PopupMessage("Une erreur est intervenue lors du chargement de la page", "error"));
 				return "redirect";
@@ -157,18 +168,23 @@ public class ArticleAction extends ActionSupport implements ServletRequestAware,
 		}
 	}
 	
+	/**
+	 * Action qui valide l'edition et met a jour la base
+	 * @return success => article/list.jsp	
+	 * @return redirect => article/edit.jsp	
+	 */
 	public String validEdit(){
 		Map session = ActionContext.getContext().getSession(); 
 		if(id_categories == null)
 			id_categories = new String[]{};
 			
 		if(Article.edit(id,titre,articletext,id_categories)){
-			session.put("message",new PopupMessage("Information mise a jour.", "info"));
+			session.put("message",new PopupMessage("Informations mise à jour.", "info"));
 			return "success";
 		}
 			
 		else{
-			message = new PopupMessage("Echec mise a jour article, voir log.", "error");
+			session.put("message",new PopupMessage("Echec mise a jour article, voir log.", "error"));
 			return "redirect";
 		}
 			

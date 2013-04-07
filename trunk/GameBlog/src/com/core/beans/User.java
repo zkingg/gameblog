@@ -15,6 +15,11 @@ import com.core.util.Util;
 import com.exception.AlreadyActivateAccountException;
 import com.exception.UserNotFoundException;
 
+/**
+ * 
+ * @author LUFFY
+ * Beans utilisateur
+ */
 public class User {
 	private long id;
 	private String login;
@@ -23,7 +28,11 @@ public class User {
 	private String dateActivation;
 	private String cleActivation;
 	
-	
+	/**
+	 * Charge information d'un utilisateur
+	 * @param id
+	 * @throws UserNotFoundException si utilisateur non trouvée
+	 */
 	public User(long id) throws UserNotFoundException {
 		try {
 			Statement stm = GetConnection.getConnection().createStatement();
@@ -40,6 +49,7 @@ public class User {
 		} catch (SQLException e) {e.printStackTrace();}
 	}
 	
+	/** get/set **/
 	public long getId() {return id;}
 	public void setId(int id) {this.id = id;}
 	public String getGroupe() {return groupe;}
@@ -49,10 +59,17 @@ public class User {
 	public String getEmail(){return this.email;}
 	public void setEmail(String email){this.email = email;}
 	public String getCleActivation() {return cleActivation;}
-	public void setCleActivation(String groupe) {this.cleActivation = cleActivation;}
+	public void setCleActivation(String cleActivation) {this.cleActivation = cleActivation;}
 	public String getDateActivation(){return this.dateActivation;}
-	public void setDateActivation(String login){this.dateActivation = dateActivation;}
+	public void setDateActivation(String dateActivation){this.dateActivation = dateActivation;}
 	
+	/**
+	 * Création utilisateur
+	 * @param login
+	 * @param mdp
+	 * @param email
+	 * @return true si ok
+	 */
 	public static boolean createUser(String login,String mdp,String email){
 		Statement stm=null;
 		try {
@@ -81,6 +98,12 @@ public class User {
 		return false;
 	}
 	
+	/**
+	 * Active un compte user
+	 * @param key:clé d'activation
+	 * @return true si user activer
+	 * @throws AlreadyActivateAccountException si compte déjà activé
+	 */
 	public static boolean activateUser(String key) throws AlreadyActivateAccountException{
 		Statement stm = null;
 		try {
@@ -108,6 +131,12 @@ public class User {
 		return false;
 	}
 	
+	/**
+	 * Connection user
+	 * @param login
+	 * @param mdp
+	 * @return id user, -1 si connection raté
+	 */
 	public static long login(String login,String mdp){
 		PreparedStatement stm = null;
 		try {
@@ -132,10 +161,11 @@ public class User {
 		}
 	}
 	
-	public static ArrayList<User> getListUser(){
-		return getListUser(1);
-	}
-	
+	/**
+	 * Récupére liste utilisateur en fonction de la page actuelle
+	 * @param page : page actuel
+	 * @return list : liste user a afficher
+	 */
 	public static ArrayList<User> getListUser(int page){
 		ArrayList<User> list = new ArrayList<User>();
 		Statement stm = null;
@@ -159,6 +189,10 @@ public class User {
 		return list;
 	}
 
+	/**
+	 * retourne le nombre de compte
+	 * @return nombre de compte
+	 */ 
 	public static int getNbAccount() {
 		Statement stm = null;
 		try {
@@ -177,10 +211,18 @@ public class User {
 		return 0;
 	}
 	
+	/**
+	 * test admin
+	 * @return true si admin
+	 */
 	public boolean isAdmin(){
 		return this.groupe.equals("admin")? true : false;
 	}
 	
+	/**
+	 * test redacteur
+	 * @return true si redacteur
+	 */
 	public boolean isRedacteur(){
 		if(groupe.equals("admin") || groupe.equals("redacteur"))
 			return true;
@@ -188,6 +230,10 @@ public class User {
 			return false;
 	}
 	
+	/**
+	 * test user
+	 * @return true si user
+	 */
 	public boolean isUser(){
 		if(groupe.equals("admin") ||
 			groupe.equals("redacteur") ||
@@ -197,6 +243,10 @@ public class User {
 			return false;
 	}
 	
+	/**
+	 * test banni
+	 * @return true si banni
+	 */
 	public boolean isBanni(){
 		return this.groupe.equals("banni")? true : false;
 	}

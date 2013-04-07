@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.blog.action.TemplateAction;
 import com.core.beans.Article;
 import com.core.beans.Categorie;
 import com.core.beans.User;
@@ -18,35 +19,48 @@ import com.core.util.PopupMessage;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class CategorieAction extends ActionSupport implements ServletRequestAware,ServletResponseAware {
+public class CategorieAction extends TemplateAction implements ServletRequestAware,ServletResponseAware {
 	private HttpServletRequest req;
+	private HttpServletResponse resp;
+	private Pagination pagination;
+	public String nom;
+	private ArrayList<Categorie> categories;
+	
+	/** get/set **/
 	@Override
 	public void setServletRequest(HttpServletRequest arg0) {req = arg0;}
-	
-	private HttpServletResponse resp;
 	@Override
 	public void setServletResponse(HttpServletResponse arg0) {resp = arg0;}
-	
-	private Pagination pagination;
 	public Pagination getPagination(){return this.pagination;}
-	
-	public String nom;
-	private PopupMessage message;
-	public PopupMessage getMessage(){return this.message;}
-	
-	private ArrayList<Categorie> categories;
 	public ArrayList<Categorie> getCategories(){return this.categories;}
 	
+	/**
+	 * Action d'affichage de nouvelle catégorie
+	 * @return success => categorie/new.jsp
+	 * @return redirect => index
+	 */
 	public String newCategorie(){
 		Map session =  ActionContext.getContext().getSession();
-		if(session.containsKey("message")){
-			message = (PopupMessage) session.get("message");
-			session.remove("message");
-		}
 		
-		return "success";
+		if(! session.containsKey("user")){
+			session.put("message",new PopupMessage("Vous devez &ecirc;tre connecter pour acceder a cette page ...", "error"));
+			return "redirect";
+		}else{
+			User user =(User) session.get("user");
+			if(! user.isRedacteur()){
+				session.put("message",new PopupMessage("Vous n'avez pas le droit d'acceder a cette page ...", "error"));
+				return "redirect";
+			}
+		
+			return "success";
+		}	
 	}
 	
+	/**
+	 * Action de validation de création de catégorie
+	 * @return success => index
+	 * @return redirect => categorie/new.jsp
+	 */
 	public String validCategorie(){
 		Map session =  ActionContext.getContext().getSession();
 		if(Categorie.creerCategorie(nom)){
@@ -58,14 +72,14 @@ public class CategorieAction extends ActionSupport implements ServletRequestAwar
 		}
 	}
 	
+	/**
+	 * Action d'affichage de la liste des catégories
+	 * @return success => categorie/list.jsp
+	 * @return redirect => index
+	 */
 	public String list(){
 		Map session = ActionContext.getContext().getSession();
-		
-		if(session.containsKey("message")){
-			message = (PopupMessage) session.get("message");
-			session.remove("message");
-		}
-		
+			
 		if(! session.containsKey("user")){
 			session.put("message",new PopupMessage("Vous devez &ecirc;tre connecter pour acceder a cette page ...", "error"));
 			return "redirect";
@@ -83,6 +97,12 @@ public class CategorieAction extends ActionSupport implements ServletRequestAwar
 		}
 	}
 	
+	/**
+	 * Action d'édition de catégorie (Ajax)
+	 * @param id : id catégorie
+	 * @param nom : libelle de la catégorie
+	 * @return null
+	 */
 	public String edit(){
 		String id = req.getParameter("id");
 		String nom = req.getParameter("nom");
@@ -100,6 +120,11 @@ public class CategorieAction extends ActionSupport implements ServletRequestAwar
 		return null;
 	}
 	
+	/**
+	 * Action de suppresion de catégorie (Ajax)
+	 * @param id : id catégorie
+	 * @return null
+	 */
 	public String delete(){
 		String id = req.getParameter("id");
 		try {

@@ -4,9 +4,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * @author LUFFY
+ * Singleton pour BDD
+ */
 public class GetConnection {
 	private static Connection con = null;
 	private GetConnection(){}
+	
+	/**
+	 * Créer et retourne le link de la connection à la BDD
+	 * @return con : link BDD
+	 * @throws SQLException si erreur
+	 */
 	public static Connection getConnection() throws SQLException{
 			if(con == null || con.isClosed()){
 				InfoConf info = new InfoConf();

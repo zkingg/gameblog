@@ -10,15 +10,12 @@ import com.core.util.Pagination;
 import com.core.util.PopupMessage;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.blog.action.TemplateAction;
 
-public class IndexAction extends ActionSupport  implements ServletRequestAware{
+public class IndexAction extends TemplateAction  implements ServletRequestAware{
 	private HttpServletRequest req;
 	@Override
 	public void setServletRequest(HttpServletRequest arg0) {req = arg0;}
-	
-	private PopupMessage message;
-	public PopupMessage getMessage(){return this.message;}
-	public void setMessage(PopupMessage message){this.message=message;}
 	
 	private ArrayList<Article> articles;
 	public ArrayList<Article> getArticles(){return this.articles;}
@@ -27,11 +24,6 @@ public class IndexAction extends ActionSupport  implements ServletRequestAware{
 	public Pagination getPagination(){return this.pagination;}
 	
 	public String execute(){
-		Map session = ActionContext.getContext().getSession();
-		if(session.containsKey("message")){
-			message = (PopupMessage)session.get("message");
-			session.remove("message");
-		}
 			
 		int current_page = req.getParameter("page") != null? Integer.parseInt(req.getParameter("page")) : 1;
 		pagination = new Pagination(Article.getNbArticles(),current_page);

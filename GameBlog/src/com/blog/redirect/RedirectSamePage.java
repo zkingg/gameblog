@@ -7,6 +7,10 @@ import org.apache.struts2.dispatcher.ServletRedirectResult;
 
 import com.opensymphony.xwork2.ActionInvocation;
 
+/**
+ * @author LUFFY
+ *	Classe qui permet de revenir à la page précedente via un action result
+ */
 public class RedirectSamePage extends ServletRedirectResult {
 
 	@Override

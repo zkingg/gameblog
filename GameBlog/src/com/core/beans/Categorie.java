@@ -8,14 +8,23 @@ import java.util.ArrayList;
 import com.core.util.GetConnection;
 import com.core.util.Pagination;
 
-
+/**
+ * 
+ * @author LUFFY
+ * Beans categorie
+ */
 public class Categorie {
 	private int id;
 	private String nom;
 	
+	/** get/set **/
 	public int getid(){return this.id;}
 	public String getNom(){return this.nom;}
 	
+	/**
+	 * Charge information
+	 * @param id: id catégorie a charger
+	 */
 	public Categorie(int id){
 		Statement stm = null;
 		try {
@@ -26,7 +35,6 @@ public class Categorie {
 				this.nom = res.getString("nom");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			try {if(stm!=null) stm.close();} 
@@ -34,6 +42,10 @@ public class Categorie {
 		}
 	}
 	
+	/**
+	 * Recupère toutes les catégories
+	 * @return liste des catégories
+	 */
 	public static ArrayList<Categorie> getCategories(){
 		ArrayList<Categorie> list = new ArrayList<Categorie>();
 		Statement stm = null;
@@ -44,7 +56,6 @@ public class Categorie {
 				list.add(new Categorie(res.getInt("id")));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			try {if(stm!=null) stm.close();} 
@@ -54,17 +65,21 @@ public class Categorie {
 		return list;
 	}
 	
+	/**
+	 * Récupère catégories en fonction d'une page
+	 * @param page : page courrante
+	 * @return : liste a afficher
+	 */
 	public static ArrayList<Categorie> getCategories(int page){
 		ArrayList<Categorie> list = new ArrayList<Categorie>();
 		Statement stm = null;
 		try {
 			stm = GetConnection.getConnection().createStatement();
-			ResultSet res = stm.executeQuery("select id from categories limit "+(page-1)*Pagination.ELEMENT_PAR_PAGE+","+Pagination.ELEMENT_PAR_PAGE);
+			ResultSet res = stm.executeQuery("select id from categories order by id asc limit "+(page-1)*Pagination.ELEMENT_PAR_PAGE+","+Pagination.ELEMENT_PAR_PAGE);
 			while(res.next()){
 				list.add(new Categorie(res.getInt("id")));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			try {if(stm!=null) stm.close();} 
@@ -74,6 +89,11 @@ public class Categorie {
 		return list;
 	}
 	
+	/**
+	 * Creation d'une catégorie
+	 * @param nom: nom de la catégorie a créer
+	 * @return true : si création ok
+	 */
 	public static boolean creerCategorie(String nom){
 		PreparedStatement stm =null;
 		try {
@@ -90,6 +110,11 @@ public class Categorie {
 			catch (SQLException e) {}
 		}
 	}
+	
+	/**
+	 * Retourne le nombre de catégorie
+	 * @return  nombre de catégorie
+	 */
 	public static int getNbCategories() {
 		Statement stm = null;
 		try {
@@ -107,6 +132,11 @@ public class Categorie {
 		return 0;
 	}
 	
+	/**
+	 * Supprime une catégorie
+	 * @param id
+	 * @return true si ok
+	 */
 	public static boolean delete(int id) {
 		Statement stm = null;
 		try {
@@ -127,8 +157,13 @@ public class Categorie {
 		return false;
 	}
 	
+	/**
+	 * Met a jour une catégorie
+	 * @param id
+	 * @param nom
+	 * @return true si ok
+	 */
 	public static boolean edit(int id, String nom) {
-		// TODO Auto-generated method stub
 		PreparedStatement stm = null;
 		
 		try {
@@ -138,7 +173,6 @@ public class Categorie {
 			stm.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			try {if(stm!=null) stm.close();} 

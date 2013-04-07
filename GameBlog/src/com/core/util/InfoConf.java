@@ -1,5 +1,9 @@
 package com.core.util;
 
+/**
+ * @author LUFFY
+ * Classe de configuration
+ */
 public class InfoConf {
 	//private final String fichier = "http://localhost:8080/GameBlog/conf/conf.ini";
 	private String db;

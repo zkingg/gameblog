@@ -10,6 +10,10 @@ import com.core.util.Pagination;
 import com.exception.ArticleNotFoundException;
 import com.exception.UserNotFoundException;
 
+/**
+ * @author LUFFY
+ * Beans Article
+ */
 public class Article {
 	private long id;
 	private int auteur_id;
@@ -20,6 +24,7 @@ public class Article {
 	private ArrayList<Categorie> categories;
 	private String str_categories;
 	
+	/** get/set **/
 	public long getId(){return this.id;}
 	public int getAuteur_id(){return this.auteur_id;}
 	public String getTitre(){return this.titre;}
@@ -29,6 +34,11 @@ public class Article {
 	public ArrayList<Categorie> getCategories(){return this.categories;}
 	public String getStr_categories(){return this.str_categories;}
 	
+	/**
+	 * Chargement des info lié a l'article
+	 * @param id : id article a chager
+	 * @throws ArticleNotFoundException : si article pas trouvé
+	 */
 	public Article(long id) throws ArticleNotFoundException{
 		Statement stm = null;
 		try {
@@ -66,6 +76,14 @@ public class Article {
 		}
 	}
 	
+	/**
+	 * Permet la creation d'un article
+	 * @param auteur_id
+	 * @param titre
+	 * @param contenu
+	 * @param id_categories
+	 * @return true :si création ok
+	 */
 	public static boolean createArticle(long auteur_id,String titre,String contenu,String[] id_categories ){
 		Statement stm = null;
 		try {
@@ -85,7 +103,6 @@ public class Article {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}finally{
@@ -96,6 +113,11 @@ public class Article {
 		return true;
 	}
 	
+	/**
+	 * Retourne une liste d'article une fonction de la page
+	 * @param page : page a la quelle on ce trouve
+	 * @return list : list d'article a afficher
+	 */
 	public static ArrayList<Article> getListArticle(int page){
 		ArrayList<Article> list = new ArrayList<Article>();
 		Statement stm = null;
@@ -106,10 +128,8 @@ public class Article {
 				list.add(new Article(res.getInt("id")));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ArticleNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			try {if(stm!=null) stm.close();} 
@@ -119,6 +139,10 @@ public class Article {
 		return list;
 	}
 	
+	/**
+	 * Retourne le nombre d'article existant
+	 * @return le nombre d'article existant
+	 */
 	public static int getNbArticles(){
 		Statement stm = null;
 		try {
@@ -127,7 +151,6 @@ public class Article {
 			res.last();
 			return res.getRow();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			try {if(stm!=null) stm.close();} 
@@ -137,6 +160,11 @@ public class Article {
 		return 0;
 	}
 	
+	/**
+	 * Permet de verifier si l'article posséde la catégorie donnée
+	 * @param id : id catégorie a trouver
+	 * @return true : si article posséde la catégorie 
+	 */
 	public boolean containtCategorieId(int id){
 		for(Categorie c : this.categories){
 			if(c.getid() == id)
@@ -146,25 +174,29 @@ public class Article {
 		return false;
 	}
 	
+	/**
+	 * Permet de changer les info d'un article
+	 * @param id
+	 * @param titre
+	 * @param contenu
+	 * @param id_categories
+	 * @return true : changement ok
+	 */
 	public static boolean edit(long id,String titre,String contenu,String[] id_categories ) {
 		PreparedStatement stm = null;
 		try {
-			System.out.println(id+","+titre+","+contenu);
+			//System.out.println(id+","+titre+","+contenu);
 			stm = GetConnection.getConnection().prepareStatement("update articles set titre=? ,contenu=? where id=? ");
-			System.out.println(02);
 			stm.setString(1, titre);
 			stm.setString(2, contenu);
 			stm.setLong(3, id);
-			System.out.println(03);
 			stm.execute();
 			stm.close();
-			System.out.println(1);
 			//categories
 			stm = GetConnection.getConnection().prepareStatement("delete from contenu_categorie where article_id=?");
 			stm.setLong(1, id);
 			stm.execute();
 			stm.close();
-			System.out.println(2);
 			for(String id_c : id_categories){
 				stm = GetConnection.getConnection().prepareStatement("insert into contenu_categorie(categorie_id,article_id) value(?,?)");
 				stm.setLong(1, Long.parseLong(id_c));
@@ -172,10 +204,8 @@ public class Article {
 				stm.execute();
 				stm.close();
 			}
-				System.out.println(3);
 			return true;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}finally{
@@ -184,6 +214,11 @@ public class Article {
 		}	
 	}
 	
+	/**
+	 * Supprime un article
+	 * @param id : id article a supprimer
+	 * @return true : si ok
+	 */
 	public static boolean delete(int id){
 		Statement stm = null;
 		try {

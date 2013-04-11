@@ -7,8 +7,10 @@
  */
 package com.blog.action;
 
+import java.util.ArrayList;
 import java.util.Map;
 
+import com.core.beans.CarouselElement;
 import com.core.util.PopupMessage;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -22,15 +24,21 @@ import com.opensymphony.xwork2.ActionSupport;
 public class TemplateAction extends ActionSupport{
 	
 	protected PopupMessage message;
+	protected ArrayList<CarouselElement> carousel;
+	
+	/** get /set **/
 	public PopupMessage getMessage(){return this.message;}
+	public ArrayList<CarouselElement> getCarousel(){return this.carousel;}
 	
 	public TemplateAction(){
 		Map session = ActionContext.getContext().getSession();
 		
 		if(session.containsKey("message")){//si message stocké en session => chargement de message pour l'affichage
-			message = (PopupMessage) session.get("message");
+			this.message = (PopupMessage) session.get("message");
 			session.remove("message");
 		}
+		
+		this.carousel = CarouselElement.getCarouselElements();
 	}
 	
 	/**

@@ -1,5 +1,5 @@
 <%@ taglib prefix ="s" uri="/struts-tags" %>
-<header>
+<header class="menu">
 	<h1>Menu</h1>
 	 <s:if test="#session.user != null">
  		<s:text name="#session.user.login"></s:text>

@@ -13,6 +13,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.blog.action.TemplateAction;
+import com.core.beans.CarouselElement;
 import com.core.beans.User;
 import com.core.util.GetConnection;
 import com.core.util.Pagination;
@@ -21,6 +22,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class InfoPageAction extends TemplateAction implements ServletRequestAware,ServletResponseAware{
+	private ArrayList<CarouselElement> element_carousel;
 	private ArrayList<User> list;
 	public Pagination pagination;
 	private HttpServletRequest req;
@@ -32,6 +34,7 @@ public class InfoPageAction extends TemplateAction implements ServletRequestAwar
 	public void setServletRequest(HttpServletRequest arg0) {req = arg0;}
 	public ArrayList<User> getList(){return this.list;}
 	public Pagination getPagination(){return this.pagination;}
+	public ArrayList<CarouselElement> getElement_carousel(){return this.element_carousel;}
 	
 	/**
 	 * Action d'affichage de la page d'information du compte
@@ -90,6 +93,28 @@ public class InfoPageAction extends TemplateAction implements ServletRequestAwar
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	/**
+	 * Affiche la page de configuration du carousel
+	 * @return redirect => index
+	 * @return success => user/carousel_edit.jsp
+	 */
+	public String carouselEdit(){
+		Map session = ActionContext.getContext().getSession();
+		if(! session.containsKey("user")){
+			session.put("message",new PopupMessage("Vous devez &ecirc;tre connecter pour acceder a cette page ...", "error"));
+			return "redirect";
+		}else{
+			User user = (User) session.get("user");
+			if(! user.isAdmin()){
+				session.put("message",new PopupMessage("Vous n'avez pas le droit d'acceder a cette page ...", "error"));
+				return "redirect";
+			}
+			
+			this.element_carousel = CarouselElement.getCarouselElements();
+			return "success";
+		}
 	}
 	
 }

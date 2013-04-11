@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix ="s" uri="/struts-tags" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %> 
@@ -30,7 +30,7 @@
 						 </s:if>
 					</ul>
 					<div class="tab-content">
-					  	<div class="tab-pane active" id="profil">
+					  	<div class="tab-pane active align_left" id="profil">
 					  		<h3>Votre profil</h3>
 					  		
 					  	</div>
@@ -38,7 +38,7 @@
 					  		aaaa
 					  	</div>
 					  	<s:if test="#session.user.groupe == 'redacteur' || #session.user.groupe =='admin' " >
-						  	<div class="tab-pane" id="articles">
+						  	<div class="tab-pane align_left" id="articles">
 						  		<h3>Gestion des articles:</h3>
 						  		<a href="/GameBlog/article/list">Listes articles</a>
 						  		<h3>Gestion des catégories:</h3>
@@ -46,9 +46,11 @@
 							</div>
 						</s:if>
 						<s:if test="#session.user.groupe =='admin' " >
-						  	<div class="tab-pane" id="administration">
+						  	<div class="tab-pane align_left" id="administration">
 						  		<h3>Gestion users:</h3>
 						  		<a href="/GameBlog/user_list" >Liste utilisateurs</a>
+						  		<h3>Préférences Site</h3>
+						  		<a href="/GameBlog/carousel_edit" >Gestion Carousel</a>
 						  	</div>
 					  	</s:if>
 					</div>

@@ -53,6 +53,13 @@
     </action>
     <action name="user_list_modif_group_ajax" class="com.blog.action.user.InfoPageAction" method="modifGroup">
     </action>
+    <action name="carousel_edit" class="com.blog.action.user.InfoPageAction" method="carouselEdit">
+        <result name="success">/jsp/user/carousel_edit.jsp</result>
+        <result name="redirect" type="redirectAction">
+        	   <param name="actionName">index</param>
+        	    <param name="namespace">/</param>
+        </result>
+    </action>
   
 </package>   
 <package name="com.blog.action.article"  namespace="/article" extends="struts-default">
@@ -72,9 +79,6 @@
             	<param name="namespace">/</param>
         </result>
         <result name="redirect" >/jsp/article/new.jsp</result>
-        	   <!--  <param name="actionName">new</param>
-        	   <param name="namespace">/article</param>
-        </result>-->
     </action>
     <action name="view" class="com.blog.action.article.ArticleAction" method="view" >
         <result name="success">/jsp/article/view.jsp</result>
@@ -137,6 +141,22 @@
     <action name="edit" class="com.blog.action.categorie.CategorieAction" method="edit">
     </action>
     <action name="delete" class="com.blog.action.categorie.CategorieAction" method="delete">
+    </action>
+</package>
+<package name="com.blog.action.carousel"  namespace="/carousel" extends="struts-default">
+    <result-types>
+		<result-type name="samePage" class="com.blog.redirect.RedirectSamePage" />
+	</result-types>
+    <action name="edit" >
+        <result type="samePage"></result>
+    </action>
+    <action name="validEdit" class="com.blog.action.carousel.CarouselAction" method="validEdit" >
+        <interceptor-ref name="fileUpload">
+	        <param name="maximumSize">5097152</param>  
+	    </interceptor-ref>
+	    <interceptor-ref name="defaultStack"></interceptor-ref>
+	    <result name="success" type="samePage"></result>
+	    <result name="input" type="samePage"></result>
     </action>
 </package>
 </struts>

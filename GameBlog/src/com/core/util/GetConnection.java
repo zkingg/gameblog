@@ -23,7 +23,8 @@ public class GetConnection {
 
 				try {
 					Class.forName("com.mysql.jdbc.Driver").newInstance();
-					con = DriverManager.getConnection("jdbc:mysql://"+info.getHost()+"/"+info.getDB(),info.getLogin(),info.getMdp());
+					con = DriverManager.getConnection("jdbc:mysql://"+info.getHost()+"/"+info.getDB()+"?useUnicode=true&characterEncoding=utf-8",info.getLogin(),info.getMdp());
+
 				}
 				catch (InstantiationException e) {e.printStackTrace();} 
 				catch (IllegalAccessException e) {e.printStackTrace();}
@@ -32,4 +33,5 @@ public class GetConnection {
 				
 			return con;
 	}
+	
 }

@@ -1,9 +1,12 @@
 package com.blog.action.user;
 
+import java.util.Map;
+
 import com.blog.action.TemplateAction;
 import com.core.beans.User;
 import com.core.util.PopupMessage;
 import com.exception.AlreadyActivateAccountException;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UserAction extends TemplateAction{
@@ -28,10 +31,12 @@ public class UserAction extends TemplateAction{
 	 * @return nok => user/inscription.jsp
 	 */
 	public String valider(){
+		Map session =  ActionContext.getContext().getSession();
 		if(mdp.equalsIgnoreCase(mdp2)){
-			if(User.createUser(login, mdp, email))
+			if(User.createUser(login, mdp, email)){
+				session.put("message", new PopupMessage(getText("user.inscription.reussite"), "info"));
 				return "ok";
-			else
+			}else
 				message = new PopupMessage(getText("user.inscription.erreur.echec"), "error");	
 		}
 		else

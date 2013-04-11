@@ -99,5 +99,22 @@ $(document).ready(function(){
 			});
 		});
 	});
+	
+	$(".edit_element_carousel").click(function(){
+		var id = $(this).attr("data");
+		var titre = $("#titre_"+id).html();
+		var contenu = $("#contenu_"+id).html();
+		
+		$("#edit_form_titre").val(titre);
+		$("#edit_form_contenu").val(contenu);
+		$("#edit_form_id").val(id);
+		
+		
+		$("#ValidModal").modal('toggle');
 
+	});
+
+	$(".remove_element_carousel").click(function(){});
+	$(".up_element_carousel").click(function(){});
+	$(".down_element_carousel").click(function(){});
 });

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix ="s" uri="/struts-tags" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %> 
@@ -18,7 +18,7 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span8">
-					<s:form method="post" action="/GameBlog/inscription_valider" validate="true">
+					<s:form method="post" action="inscription_valider" validate="true">
 						<h1><s:text name="user.inscription.titre" ></s:text></h1>
 						<s:textfield name="login" id="login" 
 							label="%{getText('user.inscription.login')}" labelposition="left" cssClass="label">

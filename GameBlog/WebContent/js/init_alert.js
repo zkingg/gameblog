@@ -102,8 +102,8 @@ $(document).ready(function(){
 	
 	$(".edit_element_carousel").click(function(){
 		var id = $(this).attr("data");
-		var titre = $("#titre_"+id).html();
-		var contenu = $("#contenu_"+id).html();
+		var titre = $("#titre_"+id).attr("data");
+		var contenu = $("#contenu_"+id).attr("data");
 		
 		$("#edit_form_titre").val(titre);
 		$("#edit_form_contenu").val(contenu);
@@ -114,7 +114,40 @@ $(document).ready(function(){
 
 	});
 
-	$(".remove_element_carousel").click(function(){});
+	$(".remove_element_carousel").click(function(){
+		var id = $(this).attr("data");
+		$("body").append('	<div id="ValidDeleteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">'+
+								'<div class="modal-body">'+
+									'<b>Voulez vous vraiment supprimer cet element ?</b>'+
+								'</div>'+
+								'<div class="modal-footer">'+
+									'<button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>'+
+									'<button class="btn btn-primary valid_element_delete" data="'+id+'">Valider la suppression</button>'+
+								'</div>'+
+							'</div>');
+		
+		$("#ValidDeleteModal").modal('toggle');
+		$('.valid_element_delete').bind("click",function(){
+			var _id = $(this).attr("data");
+			
+			$.ajax({
+				type: 'POST' ,
+				url: '/GameBlog/carousel/delete',
+				data: {
+					id: _id,
+				},
+				success: function(data){$("#row_"+_id).remove();},
+				error: function(data){alert(data);},
+				complete: function(){$("#ValidDeleteModal").modal('hide');}
+					
+			});
+		});
+	});
+	
 	$(".up_element_carousel").click(function(){});
 	$(".down_element_carousel").click(function(){});
+	
+	$(".ajouter_carousel_element").click(function(){
+		$("#newModal").modal('toggle');
+	});
 });

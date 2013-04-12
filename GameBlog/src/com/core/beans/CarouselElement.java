@@ -85,10 +85,13 @@ public class CarouselElement {
 		
 		try {
 			
-			stm=GetConnection.getConnection().prepareStatement("update carouselelements set titre=?, contenu=?, href=? where id=? ");
+			stm=GetConnection.getConnection().prepareStatement("update carouselelements set titre=? , contenu=?, href=ifnull(?,href) where id=? ");
 			stm.setString(1, titre);
 			stm.setString(2, contenu);
-			stm.setString(3, nom_img);
+			if(nom_img.equals(""))//if null
+				stm.setNull(3, java.sql.Types.VARCHAR);
+			else
+				stm.setString(3, nom_img);
 			stm.setInt(4, id);
 			stm.execute();
 			
@@ -99,6 +102,60 @@ public class CarouselElement {
 		}
 		
 		
+		return false;
+	}
+	
+	/**
+	 * Suppression element carousel
+	 * @param id : id de l'element a supprimer
+	 * @return true : si réussi
+	 */
+	public static boolean delete(int id) {
+		Statement stm = null;
+		
+		try {
+			stm = GetConnection.getConnection().createStatement();
+			stm.executeUpdate("delete from carouselelements where id ="+id);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			try {
+				if(stm!= null)stm.close();
+			}
+			catch (SQLException e) {}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Creation nouvel element
+	 * @param titre : titre
+	 * @param contenu : description
+	 * @param href : nom du fichier
+	 * @return true : si réussi
+	 */
+	public static boolean create(String titre,String contenu, String href){
+		PreparedStatement stm = null;
+		
+		try {
+			stm = GetConnection.getConnection().prepareStatement("insert into carouselelements(titre,contenu,href) values(?,?,?)");
+			stm.setString(1, titre);
+			stm.setString(2, contenu);
+			stm.setString(3, href);
+			if(stm.executeUpdate() != 0)
+				return true;
+			else
+				return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				if(stm!=null)stm.close();
+			} catch (SQLException e) {}
+		}
 		return false;
 	}
 }

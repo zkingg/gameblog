@@ -19,7 +19,7 @@
 		<!-- Modal -->
 		<div id="ValidModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-body">
-				<p><s:text name="article.delete.confirm" /></p>
+				<b><s:text name="article.delete.confirm" /></b>
 			</div>
 			<div class="modal-footer">
 				<button class="btn" data-dismiss="modal" aria-hidden="true"><s:text name="article.delete.cancel" /></button>

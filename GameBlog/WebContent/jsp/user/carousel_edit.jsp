@@ -24,12 +24,33 @@
 			 <label><s:text name="carousel.edit.form.contenu" /></label>
 			 <s:textarea name="contenu" id="edit_form_contenu" cssClass="article_textearea" rows="5"></s:textarea>
 			 <label><s:text name="carousel.edit.form.choixfichier" /></label>
-			<s:file name="image" label='%{getText("carousel.edit.form.choixfichier")}' size="70" required="false"/>	
+			<s:file name="image" label='%{getText("carousel.edit.form.choixfichier")}' size="70" required="false" value=" "/>	
 			<s:hidden name="id" id="edit_form_id"></s:hidden>		
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true"><s:text name="article.delete.cancel" /></button>
 			<s:submit cssClass="btn btn-primary" value='%{getText("article.edit.form.submit")}' id="edit_form_valid" />
+		</div>
+	</div>
+	</s:form>
+	
+	<!--  Popup - ajout -->
+	<s:form action="carousel/new" method="POST" enctype="multipart/form-data" theme="simple">
+	<div id="newModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-header">
+			<h2><s:text name="carousel.new.form.header" /></h2>
+		</div>
+		<div class="modal-body">
+			<label><s:text name="article.new.form.titre" /></label>
+			<s:textfield name="titre" id="edit_form_titre" cssClass="article_textearea" /><br/>
+			 <label><s:text name="carousel.edit.form.contenu" /></label>
+			 <s:textarea name="contenu" id="edit_form_contenu" cssClass="article_textearea" rows="5"></s:textarea>
+			 <label><s:text name="carousel.edit.form.choixfichier" /></label>
+			<s:file name="image" label='%{getText("carousel.edit.form.choixfichier")}' size="70" required="false" value=" "/>		
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true"><s:text name="article.delete.cancel" /></button>
+			<s:submit cssClass="btn btn-primary" value='%{getText("article.new.form.submit")}' id="edit_form_valid" />
 		</div>
 	</div>
 	</s:form>
@@ -60,15 +81,20 @@
 								<td class="va_middle" >
 									<fieldset class="">
 											<legend>
-												<h2 id="titre_<s:property value='id'/>" ><s:property value="titre" /></h2>
+												<h2 id="titre_<s:property value='id'/>" data="<s:property value='titre' />"><s:property value="titre" /></h2>
 											</legend>
-											<p id="contenu_<s:property value='id'/>">
+											<p id="contenu_<s:property value='id'/>" data="<s:property value='contenu'/>" >
 												<s:property value="contenu" />
 											</p>
 									</fieldset>
 								</td>
 							</tr>	
 						</s:iterator>
+						<tr class="ajouter_carousel_element">
+							<td></td>
+							<td></td>
+							<td><i class="icon-plus-sign" ></i> <s:text name="carousel.add.text"/></td>
+						</tr>
 					</table>
 				</div>
 				<div class="span4">

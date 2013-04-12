@@ -147,10 +147,17 @@
     <result-types>
 		<result-type name="samePage" class="com.blog.redirect.RedirectSamePage" />
 	</result-types>
-    <action name="edit" >
-        <result type="samePage"></result>
+    <action name="delete" class="com.blog.action.carousel.CarouselAction" method="delete" >
     </action>
     <action name="validEdit" class="com.blog.action.carousel.CarouselAction" method="validEdit" >
+        <interceptor-ref name="fileUpload">
+	        <param name="maximumSize">5097152</param>  
+	    </interceptor-ref>
+	    <interceptor-ref name="defaultStack"></interceptor-ref>
+	    <result name="success" type="samePage"></result>
+	    <result name="input" type="samePage"></result>
+    </action>
+    <action name="new" class="com.blog.action.carousel.CarouselAction" method="create" >
         <interceptor-ref name="fileUpload">
 	        <param name="maximumSize">5097152</param>  
 	    </interceptor-ref>

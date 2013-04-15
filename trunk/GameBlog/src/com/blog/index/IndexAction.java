@@ -23,6 +23,10 @@ public class IndexAction extends TemplateAction  implements ServletRequestAware{
 	private Pagination pagination;
 	public Pagination getPagination(){return this.pagination;}
 	
+	/**
+	 * Affichage de la page d'index
+	 * @return index => index.jsp
+	 */
 	public String execute(){
 			
 		int current_page = req.getParameter("page") != null? Integer.parseInt(req.getParameter("page")) : 1;
@@ -31,6 +35,14 @@ public class IndexAction extends TemplateAction  implements ServletRequestAware{
 		//System.out.println(req.getParameter("message"));
 		//message = new PopupMessage("aaa", "error");
 		return "index";
+	}
+	
+	/**
+	 * Action d'affichage du formulaire de creation de compte
+	 * @return success => user/inscription.jsp
+	 */
+	public String afficher_form(){
+		return "success";
 	}
 
 }

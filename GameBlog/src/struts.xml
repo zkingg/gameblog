@@ -20,8 +20,8 @@
     </action>
 	
 	<!--  User action -->
-	<action name="inscription" >
-     	 <result >/jsp/user/inscription.jsp</result>
+	<action name="inscription" class="com.blog.index.IndexAction" method="afficher_form" >
+     	 <result name="success" >/jsp/user/inscription.jsp</result>
     </action>
     <action name="inscription_valider" class="com.blog.action.user.UserAction" method="creer">
      	 <result name="ok" type="redirectAction" >index</result>

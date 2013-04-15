@@ -56,4 +56,6 @@ public class UserAction extends TemplateAction implements ServletRequestAware{
 		
 		return "nok";
 	}
+	
+
 }

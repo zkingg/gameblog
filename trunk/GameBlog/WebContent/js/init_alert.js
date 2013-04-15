@@ -92,7 +92,7 @@ $(document).ready(function(){
 					id: _id,
 					nom: _nom,
 				},
-				success: function(data){},
+				success: function(data){location.reload();},
 				error: function(data){alert(data);},
 				complete: function(){$("#categorie_"+id).html($("#nom_categorie_"+id).val());}
 					
@@ -136,17 +136,17 @@ $(document).ready(function(){
 				data: {
 					id: _id,
 				},
-				success: function(data){$("#row_"+_id).remove();},
+				success: function(data){
+					$("#row_"+_id).remove();
+					location.reload();
+				},
 				error: function(data){alert(data);},
 				complete: function(){$("#ValidDeleteModal").modal('hide');}
 					
 			});
 		});
 	});
-	
-	$(".up_element_carousel").click(function(){});
-	$(".down_element_carousel").click(function(){});
-	
+		
 	$(".ajouter_carousel_element").click(function(){
 		$("#newModal").modal('toggle');
 	});

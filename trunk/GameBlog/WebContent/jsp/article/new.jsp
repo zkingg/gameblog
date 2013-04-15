@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="utf-8"%>
 <%@ taglib prefix ="s" uri="/struts-tags" %>
 <%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,12 +17,12 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span8 align_left">
-					<s:form method="post" action="/article/valid_article" theme="simple">
+					<s:form method="post" action="/article/valid_article" acceptcharset="true" theme="simple">
 						<h1><s:text name="article.new.titre" /></h1>
 						<h2><label><s:text name="article.new.form.titre" /></label></h2>
-						<s:textfield name="titre" id="titre" />
+						<s:textfield cssClass="wwFormTable" name="titre" id="titre" />
 						<h2><label><s:text name="article.new.form.article" /></label></h2>
-						<s:textarea key="articletext" rows="10"  />
+						<s:textarea cssClass="contenu_article" key="articletext" rows="10"  />
 						<h2><label><s:text name="article.new.form.categorie" /></label></h2>
 						<div class="hero-unit" >
 							<div class="row-fluid">			

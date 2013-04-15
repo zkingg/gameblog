@@ -72,8 +72,6 @@
 								<td class="va_middle" >
 									<i class="icon-edit edit_element_carousel" data="<s:property value='id'/>"></i>
 									<i class="icon-remove remove_element_carousel" data="<s:property value='id'/>"></i><br/>
-									<i class="icon-arrow-up up_element_carousel" data="<s:property value='id'/>"></i>
-									<i class="icon-arrow-down down_element_carousel" data="<s:property value='id'/>"></i>
 								</td>
 								<td class="va_middle">
 									<img src="/GameBlog/content/carousel/<s:property value='href' />" id="image_<s:property value='id'/>" alt="" class="img-rounded" height="140" width="140"/>

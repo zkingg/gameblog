@@ -21,8 +21,8 @@
 					<div class="articles_zone">
 						<s:iterator value="articles">						
 							<fieldset class="" >
-								<legend><h1><a href="/GameBlog/article/view?id=<s:property value="id"/>" ><s:property value="titre" /></a></h1></legend>
-								<p class="well"><s:property value="article" /></p>
+								<legend><h1><a href="/GameBlog/article/view?id=<s:property value="id"/>" ><s:property escape="false" value="titre" /></a></h1></legend>
+								<p class="well"><s:property escape="false" value="article"  /></p>
 								<blockquote>
 									<!-- Auteur -->
 									<small><s:property value="date" /></small>

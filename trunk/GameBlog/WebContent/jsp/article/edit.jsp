@@ -20,9 +20,9 @@
 					<s:form method="post" action="/article/valid_edit" theme="simple">
 						<h1><s:text name="article.edit.titre" /></h1>
 						<h2><label><s:text name="article.new.form.titre" /></label></h2>
-						<s:textfield name="titre" id="titre" value="%{article.titre}" />
+						<s:textfield cssClass="wwFormTable" name="titre" id="titre" value="%{article.titre}" />
 						<h2><label><s:text name="article.new.form.article" /></label></h2>
-						<s:textarea key="articletext" rows="10" value="%{article.article}" />
+						<s:textarea cssClass="contenu_article" key="articletext" rows="10" value="%{article.article}" />
 						<h2><label><s:text name="article.new.form.categorie" /></label></h2>
 						<div class="hero-unit" >
 							<div class="row-fluid">			

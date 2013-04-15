@@ -85,11 +85,14 @@ public class Article {
 	 * @return true :si création ok
 	 */
 	public static boolean createArticle(long auteur_id,String titre,String contenu,String[] id_categories ){
-		Statement stm = null;
+		PreparedStatement stm = null;
 		try {
-			stm = GetConnection.getConnection().createStatement();
+			stm = GetConnection.getConnection().prepareStatement("insert into articles(auteur_id,titre,contenu,date) values(?,?,?,now())",Statement.RETURN_GENERATED_KEYS);
 			//System.out.println("insert into articles(auteur_id,titre,contenu,date) value("+auteur_id+",'"+titre+"','"+contenu+"',now())");
-			if(stm.executeUpdate("insert into articles(auteur_id,titre,contenu,date) values("+auteur_id+",'"+titre+"','"+contenu+"',now())",Statement.RETURN_GENERATED_KEYS) != 1 ){
+			stm.setLong(1,auteur_id);
+			stm.setString(2,titre);
+			stm.setString(3, contenu);
+			if(stm.executeUpdate() != 1 ){
 				return false;
 			}
 			
@@ -97,9 +100,11 @@ public class Article {
 			res.next();
 			long id_article = res.getLong(1) ;
 			
-			for(String id_categorie : id_categories){
-				if(stm.executeUpdate("insert into contenu_categorie(article_id,categorie_id) value("+id_article+","+id_categorie+")") != 1 ){
-					return false;
+			if(id_categories != null){
+				for(String id_categorie : id_categories){
+					if(stm.executeUpdate("insert into contenu_categorie(article_id,categorie_id) value("+id_article+","+id_categorie+")") != 1 ){
+						return false;
+					}
 				}
 			}
 		} catch (SQLException e) {

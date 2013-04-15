@@ -40,13 +40,13 @@ public class ArticleSubmitAction extends TemplateAction {
 		Map session = ActionContext.getContext().getSession();
 		categories = Categorie.getCategories();
 			
-		if(id_categories == null){
+		/*if(id_categories == null){
 			session.put("message", new PopupMessage("Vous devez choisir au moins une catégories","error"));
 			return "redirect";
-		}
+		}*/
 		
 		if(titre.equals("") || articletext.equals("")){
-			session.put("message", new PopupMessage("Vous devez remplir tout les champs","error"));
+			this.message = new PopupMessage("Vous devez remplir tout les champs","error");
 			return "redirect";
 		}
 		
@@ -54,7 +54,7 @@ public class ArticleSubmitAction extends TemplateAction {
 			session.put("message", new PopupMessage("Article ajouté","success"));
 			return "success";
 		}else{
-			session.put("message", new PopupMessage("Echec ajout article","error"));
+			this.message = new PopupMessage("Echec ajout article","error");
 			return "redirect";
 		}
 	}

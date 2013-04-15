@@ -70,7 +70,7 @@ public class User {
 	 * @param email
 	 * @return true si ok
 	 */
-	public static boolean createUser(String login,String mdp,String email){
+	public static boolean createUser(String login,String mdp,String email,String host){
 		Statement stm=null;
 		try {
 			stm = GetConnection.getConnection().createStatement();
@@ -84,7 +84,7 @@ public class User {
 				String corp ="Merci de vous être inscrit sur le site de GameBlog,\r\n" +
 						"Voici les informations de votre compte\n\r\tUser :"+login+
 						"\r\n\tMot de passe :"+mdp+
-						"\r\n\r\nVeulliez cliquer sur ce lien pour activer votre compte : http://localhost:8080/GameBlog/activation?key="+key;
+						"\r\n\r\nVeulliez cliquer sur ce lien pour activer votre compte : http://"+host+"/GameBlog/activation?key="+key;
 				Mailler.sendMail("Activation de votre compte sur GameBlog", corp, email);
 				return true;
 			}	

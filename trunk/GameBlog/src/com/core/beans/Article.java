@@ -36,10 +36,20 @@ public class Article {
 	
 	/**
 	 * Chargement des info lié a l'article
-	 * @param id : id article a chager
+	 * @param id : id article a changer
 	 * @throws ArticleNotFoundException : si article pas trouvé
 	 */
 	public Article(long id) throws ArticleNotFoundException{
+		this(id,false);
+	}
+	
+	/**
+	 * Chargement des info lié a l'article
+	 * @param id : id article a changer
+	 * @param htmlEncode : si true => transforme les \n en <br />
+	 * @throws ArticleNotFoundException : si article pas trouvé
+	 */
+	public Article(long id,boolean htmlEncode) throws ArticleNotFoundException{
 		Statement stm = null;
 		try {
 			stm = GetConnection.getConnection().createStatement();
@@ -49,6 +59,9 @@ public class Article {
 				this.auteur_id = res.getInt("auteur_id");
 				this.titre = res.getString("titre");
 				this.article = res.getString("contenu");
+				if(htmlEncode){
+					this.article = article.replace("\n", "<br/>");
+				}
 				this.date = res.getString("date");
 				this.auteur = new User(this.auteur_id);
 				
@@ -130,7 +143,7 @@ public class Article {
 			stm = GetConnection.getConnection().createStatement();
 			ResultSet res = stm.executeQuery("select id from articles order by date desc limit "+(page-1)*Pagination.ELEMENT_PAR_PAGE+","+Pagination.ELEMENT_PAR_PAGE);
 			while(res.next()){
-				list.add(new Article(res.getInt("id")));
+				list.add(new Article(res.getInt("id"),true));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

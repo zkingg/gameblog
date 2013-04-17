@@ -22,6 +22,17 @@
 						<h2><label><s:text name="article.new.form.titre" /></label></h2>
 						<s:textfield cssClass="wwFormTable" name="titre" id="titre" />
 						<h2><label><s:text name="article.new.form.article" /></label></h2>
+						<div class="btn-toolbar">
+							  <div class="btn-group">
+							  	<div class="btn" ><i class="icon-italic"></i></div>
+							  	<div class="btn" ><i class="icon-bold"></i></div>
+							  	<div class="btn" ><i class="icon-tint"></i></div>
+							  	<div class="btn" ><i class="icon-picture"></i></div>
+							  	<div class="btn" ><i class="icon-align-left"></i></div>
+							  	<div class="btn" ><i class="icon-align-center"></i></div>
+							  	<div class="btn" ><i class="icon-align-right"></i></div>
+							  </div>
+						</div>
 						<s:textarea cssClass="contenu_article" key="articletext" rows="10"  />
 						<h2><label><s:text name="article.new.form.categorie" /></label></h2>
 						<div class="hero-unit" >

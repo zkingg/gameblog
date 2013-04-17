@@ -78,7 +78,7 @@ public class ArticleAction extends TemplateAction implements ServletRequestAware
 		Map session = ActionContext.getContext().getSession();
 		
 		try {
-			article = new Article(Long.parseLong(req.getParameter("id")));
+			article = new Article(Long.parseLong(req.getParameter("id")),true);
 		} catch (NumberFormatException e) {
 			session.put("message", new PopupMessage(getText("article.view.incorrect_id"), "error"));
 			return "redirect";

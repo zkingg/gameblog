@@ -150,4 +150,66 @@ $(document).ready(function(){
 	$(".ajouter_carousel_element").click(function(){
 		$("#newModal").modal('toggle');
 	});
+		
+  	$(".icon-italic").click(function(){getSelectionStart("italic");});
+  	$(".icon-bold").click(function(){getSelectionStart("bold");});
+  	$(".icon-tint").click(function(){getSelectionStart("tint");});
+  	$(".icon-picture").click(function(){getSelectionStart("picture");});
+  	$(".icon-align-left").click(function(){getSelectionStart("left");});
+  	$(".icon-align-center").click(function(){getSelectionStart("center");});
+  	$(".icon-align-right").click(function(){getSelectionStart("right");});
 });
+
+
+function getSelectionStart(action)
+{
+    switch(action){
+    case "italic" :
+    	var txt = "<span style='font-style:italic;'></span>";
+    	break;
+    case "bold" :
+	   	var txt = "<b></b>";
+	   	break;
+    case "tint" :
+	   	var txt = "<span style='font-style:italic;'></span>";
+	   	break;
+    case "picture" :
+	   	var txt = "<img src=''></img>";
+	   	break;
+    case "left" :
+	   	var txt = "<div style='text-align:left;'></div>";
+	   	break;
+    case "center" :
+	   	var txt = "<div style='text-align:center;'></div>";
+	   	break;
+    case "right" :
+      	var txt = "<div style='text-align:right;'></div>";
+      	break;
+    }
+    
+    var Obj = document.getElementById("valid_article_articletext")?document.getElementById("valid_article_articletext"):document.getElementById("valid_edit_articletext");
+    if( Obj){
+        Obj.focus();
+        if( typeof Obj.selectionStart != "undefined"){
+            var PosDeb = Obj.selectionStart;
+            var PosFin = Obj.selectionEnd;
+            var Chaine = Obj.value;
+            var Avant = Chaine.substring( 0 , PosDeb);
+            var Apres = Chaine.substring( PosFin, Obj.textLength );
+            var szSelect = Chaine.substring( PosDeb, PosFin);
+            Obj.value = Avant + txt+ Apres;
+            Obj.setSelectionRange( Avant.length + txt.length, Avant.length + txt.length );
+            Obj.focus();
+        }
+        else{
+            var Select = document.selection.createRange().text;
+            if( Select.length > 0){
+                var Chaine = document.selection.createRange();
+                Chaine.text = txt ;
+                Chaine.collapse();
+                Chaine.select();
+            }
+        }
+    }  
+}
+

@@ -27,8 +27,7 @@ public class IndexAction extends TemplateAction  implements ServletRequestAware{
 	 * Affichage de la page d'index
 	 * @return index => index.jsp
 	 */
-	public String execute(){
-			
+	public String execute(){		
 		int current_page = req.getParameter("page") != null? Integer.parseInt(req.getParameter("page")) : 1;
 		pagination = new Pagination(Article.getNbArticles(),current_page);
 		articles = Article.getListArticle(current_page);

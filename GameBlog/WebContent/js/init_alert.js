@@ -1,10 +1,23 @@
 $(document).ready(function(){
 	$(".alert").alert();
-	$("#btnlogin").popover({placement:'bottom'}); 
+	$("#btnlogin").popover({placement:'bottom'});
+	$("#color-chooser").popover({placement:'bottom'}); 
+	
+	//init color picker lors d'un appui
+	$("#color-chooser").click(function(){
+		$("#colorpicker").farbtastic('#color');
+		
+		//lors de la validation de la couleur
+	  	$(".valid-tint").click(function(){
+	  		$("#color-chooser").popover("hide");
+	  		getSelectionStart("tint");
+	  	});
+	});
+	
 	
 	$(".popup_alert").fadeIn(400).delay(4000).fadeOut(400);//fermeture auto des popup
 	
-	
+	//event changement de groupe user
 	$("select[name=group_select]").change(function(){
 		var _id = $(this).attr('id');
 		var _id_group= $(this,'option:selected').val();
@@ -25,13 +38,14 @@ $(document).ready(function(){
 		});
 	});
 	
-	
+	//event delete article(affichage popup)
 	$(".article_delete").click(function(){
 		var id = $(this).attr("data");
 		$(".valid_article_delete").attr("data",id);
 		$("#ValidModal").modal('toggle');
 	});
 	
+	//validation suppresion article
 	$(".valid_article_delete").click(function(){
 		var _id = $(this).attr("data");
 		$.ajax({
@@ -47,13 +61,14 @@ $(document).ready(function(){
 		});	
 	});
 
-
+	//affichage popup confirm delete categorie
 	$(".categorie_delete").click(function(){
 		var id = $(this).attr("data");
 		$(".valid_categorie_delete").attr("data",id);
 		$("#ValidModal").modal('toggle');
 	});
 	
+	//validation delete categorie
 	$(".valid_categorie_delete").click(function(){
 		var _id = $(this).attr("data");
 		$.ajax({
@@ -69,6 +84,7 @@ $(document).ready(function(){
 		});	
 	});
 
+	//event appui sur button edit categorie
 	$(".categorie_edit").click(function(){
 		var id = $(this).attr("data");
 		var categorie = $("#categorie_"+id).html();
@@ -81,6 +97,7 @@ $(document).ready(function(){
 				'</div>'
 		);
 		
+		//validation changement categorie
 		$('.valid_categorie_edit').bind("click",function(){
 			var _id = $(this).attr("data");
 			var _nom = $("#nom_categorie_"+id).val();
@@ -100,6 +117,7 @@ $(document).ready(function(){
 		});
 	});
 	
+	//affichage popup => formulaire modification info element carousel
 	$(".edit_element_carousel").click(function(){
 		var id = $(this).attr("data");
 		var titre = $("#titre_"+id).attr("data");
@@ -114,6 +132,7 @@ $(document).ready(function(){
 
 	});
 
+	//affichage popip confim delete element carousel
 	$(".remove_element_carousel").click(function(){
 		var id = $(this).attr("data");
 		$("body").append('	<div id="ValidDeleteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">'+
@@ -147,20 +166,21 @@ $(document).ready(function(){
 		});
 	});
 		
+	//affichage popup => formulaire nouvel element carousel
 	$(".ajouter_carousel_element").click(function(){
 		$("#newModal").modal('toggle');
 	});
 		
+	/* events pour ajout de balise de style dans texteara new/edit article  */
   	$(".icon-italic").click(function(){getSelectionStart("italic");});
   	$(".icon-bold").click(function(){getSelectionStart("bold");});
-  	$(".icon-tint").click(function(){getSelectionStart("tint");});
   	$(".icon-picture").click(function(){getSelectionStart("picture");});
   	$(".icon-align-left").click(function(){getSelectionStart("left");});
   	$(".icon-align-center").click(function(){getSelectionStart("center");});
   	$(".icon-align-right").click(function(){getSelectionStart("right");});
 });
 
-
+//function qui permet d'ajouter des balises de styles en fonction du paramétre dans le champs #valid_article_articletext ou #valid_edit_articletext
 function getSelectionStart(action)
 {
     switch(action){
@@ -171,7 +191,7 @@ function getSelectionStart(action)
 	   	var txt = "<b></b>";
 	   	break;
     case "tint" :
-	   	var txt = "<span style='font-style:italic;'></span>";
+	   	var txt = "<span style='color:"+$.farbtastic("#colorpicker").color+";'></span>";
 	   	break;
     case "picture" :
 	   	var txt = "<img src=''></img>";
@@ -185,6 +205,8 @@ function getSelectionStart(action)
     case "right" :
       	var txt = "<div style='text-align:right;'></div>";
       	break;
+    default:
+    	return;
     }
     
     var Obj = document.getElementById("valid_article_articletext")?document.getElementById("valid_article_articletext"):document.getElementById("valid_edit_articletext");

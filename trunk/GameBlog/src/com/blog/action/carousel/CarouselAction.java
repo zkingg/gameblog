@@ -97,6 +97,10 @@ public class CarouselAction extends TemplateAction implements ServletRequestAwar
 		return null;
 	}
 	
+	/**
+	 * Action de creation d'un nouvel element du carousel
+	 * @return success => retour page précédente
+	 */
 	public String create(){
 		Map session = ActionContext.getContext().getSession();
         try {

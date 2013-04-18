@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="/GameBlog/css/bootstrap/css/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="/GameBlog/css/style.css" type="text/css" />
-
+<link rel="stylesheet" href="/GameBlog/css/farbtastic.css" type="text/css" />
 <title>Edition d'un article</title>
 </head>
 <body>
@@ -26,7 +26,7 @@
 							  <div class="btn-group">
 							  	<div class="btn" ><i class="icon-italic"></i></div>
 							  	<div class="btn" ><i class="icon-bold"></i></div>
-							  	<div class="btn" ><i class="icon-tint"></i></div>
+							  	<div class="btn" id="color-chooser" data-toggle="popover" title="Choix de la couleur  <div class='btn btn-primary valid-tint'>Choisir</div>" data-content="<jsp:include page='/jsp/layout/items/color_picker_form.jsp' />" ><i class="icon-tint"></i></div>
 							  	<div class="btn" ><i class="icon-picture"></i></div>
 							  	<div class="btn" ><i class="icon-align-left"></i></div>
 							  	<div class="btn" ><i class="icon-align-center"></i></div>

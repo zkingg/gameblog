@@ -1,6 +1,7 @@
 <%@ taglib prefix ="s" uri="/struts-tags" %>
 <script type="text/javascript" src="/GameBlog/js/jquery-1.9.1.js"></script>	
 <script src="/GameBlog/css/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/GameBlog/js/farbtastic.js"></script>
 <script src="/GameBlog/js/init_alert.js"></script>
 <header>
 	<div class="navbar" >

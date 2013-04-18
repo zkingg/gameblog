@@ -7,7 +7,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
+/**
+ * Classe Auto encodage UTF8
+ * @author LUFFY
+ *
+ */
 public class EncodingFilter implements javax.servlet.Filter {
  	private String encoding;
  	public void init(FilterConfig filterConfig) throws ServletException {

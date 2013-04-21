@@ -8,11 +8,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="/GameBlog/css/bootstrap/css/bootstrap.css"
 	type="text/css" />
+<link rel="stylesheet" href="/GameBlog/css/bootstrap/css/bootstrap-responsive.css"
+	type="text/css" />
 <link rel="stylesheet" href="/GameBlog/css/style.css" type="text/css" />
+
 
 <title>Liste des Catégorie</title>
 </head>
-<body>
+<body class="container-fluid">
 	<div class="contenu">
 		<jsp:include page="/jsp/layout/header.jsp" />
 		
@@ -46,6 +49,11 @@
 								<td id="categorie_<s:property value="id"/>"><s:property value="nom"/></td>
 							</tr>
 						</s:iterator>
+						<tr >
+							<td></td>
+							<td></td>
+							<td><i class="icon-plus-sign" ></i> <a href="/GameBlog/categorie/new"><s:text name="categorie.add.text"/></a></td>
+						</tr>
 					</table>
 					<jsp:include page="/jsp/layout/items/pagination.jsp" />
 				</div>

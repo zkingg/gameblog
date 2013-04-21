@@ -8,9 +8,6 @@
 		<div class="navbar-inner" >
 			<a  class="brand" href="/GameBlog/index">GameBlog</a>
 			<ul class="nav">
-				<li><a href="#" >Action 1</a></li>
-				<li><a href="#" >Action 2</a></li>
-				<li><a href="#" >Action 3</a></li>
 				<li class="divider-vertical" ></li>		
 				
 			</ul>

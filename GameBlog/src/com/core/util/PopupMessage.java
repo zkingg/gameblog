@@ -1,10 +1,10 @@
 package com.core.util;
 
-import java.awt.TrayIcon.MessageType;
 
 /**
+ * Classe pour stocker les informations a afficher dans des popup
  * @author LUFFY
- * Classe pour stocker les informations pour afficher des popup
+ * 
  */
 public class PopupMessage {
 	public String type;

@@ -2,14 +2,17 @@ package com.blog.action.article;
 
 import java.util.ArrayList;
 import java.util.Map;
-
 import com.blog.action.TemplateAction;
 import com.core.beans.Article;
 import com.core.beans.Categorie;
 import com.core.util.PopupMessage;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * Action lié a la validation de la création d'article
+ * @author LUFFY
+ *
+ */
 public class ArticleSubmitAction extends TemplateAction {
 	private String titre;
 	private String articletext;

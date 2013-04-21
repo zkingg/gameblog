@@ -1,17 +1,19 @@
 package com.blog.action.user;
 
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.interceptor.ServletRequestAware;
-
 import com.blog.action.TemplateAction;
 import com.core.beans.User;
 import com.core.util.PopupMessage;
 import com.exception.AlreadyActivateAccountException;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * Action d'activation des utilisateur
+ * @author LUFFY
+ *
+ */
 public class ActivationUser extends TemplateAction implements ServletRequestAware{
 	private HttpServletRequest req;
 	@Override

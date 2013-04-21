@@ -5,14 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import com.core.util.GetConnection;
 import com.exception.NotFoundCarouselElementExeception;
 
 /**
- * 
- * @author LUFFY
  * Beans : element du carousel
+ * @author LUFFY
+ * 
  */
 public class CarouselElement {
 	private int id;

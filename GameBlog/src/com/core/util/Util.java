@@ -5,8 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @author LUFFY
  * Classe utilitaire
+ * @author LUFFY
+ * 
  */
 public class Util {
 

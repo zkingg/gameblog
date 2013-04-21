@@ -10,8 +10,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * @author LUFFY
  * Classe utilitaire pour envoyer des mails.
+ * @author LUFFY
+ * 
  */
 public class Mailler {
 	private static String from = "gameblog.automail@gmail.com";

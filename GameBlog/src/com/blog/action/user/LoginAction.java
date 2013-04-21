@@ -1,15 +1,17 @@
 package com.blog.action.user;
 
 import java.util.Map;
-
 import com.blog.action.TemplateAction;
 import com.core.beans.User;
 import com.core.util.PopupMessage;
 import com.exception.UserNotFoundException;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
-
+/**
+ * Action de connection au site
+ * @author LUFFY
+ *
+ */
 public class LoginAction extends TemplateAction {
 	private String login;
 	private String mdp;

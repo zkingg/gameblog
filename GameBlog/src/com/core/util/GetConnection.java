@@ -5,8 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * @author LUFFY
  * Singleton pour BDD
+ * @author LUFFY
+ * 
  */
 public class GetConnection {
 	private static Connection con = null;

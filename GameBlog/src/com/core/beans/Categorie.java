@@ -9,9 +9,9 @@ import com.core.util.GetConnection;
 import com.core.util.Pagination;
 
 /**
- * 
- * @author LUFFY
  * Beans categorie
+ * @author LUFFY
+ * 
  */
 public class Categorie {
 	private int id;

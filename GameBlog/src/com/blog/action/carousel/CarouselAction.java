@@ -3,20 +3,21 @@ package com.blog.action.carousel;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-
 import com.blog.action.TemplateAction;
-import com.core.beans.Article;
 import com.core.beans.CarouselElement;
 import com.core.util.PopupMessage;
 import com.opensymphony.xwork2.ActionContext;
 
+/**
+ * Groupement des actions lié aux éléments du carousel
+ * @author LUFFY
+ *
+ */
 public class CarouselAction extends TemplateAction implements ServletRequestAware,ServletResponseAware{
 	private File image;
 	private String imageContentType;

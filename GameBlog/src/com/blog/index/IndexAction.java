@@ -1,17 +1,17 @@
 package com.blog.index;
 
-
 import java.util.ArrayList;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import com.core.beans.Article;
 import com.core.util.Pagination;
-import com.core.util.PopupMessage;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import com.blog.action.TemplateAction;
 
+/**
+ * Action d'affichage de la page d'index
+ * @author LUFFY
+ *
+ */
 public class IndexAction extends TemplateAction  implements ServletRequestAware{
 	private HttpServletRequest req;
 	@Override

@@ -3,22 +3,22 @@ package com.blog.action.categorie;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-
 import com.blog.action.TemplateAction;
-import com.core.beans.Article;
 import com.core.beans.Categorie;
 import com.core.beans.User;
 import com.core.util.Pagination;
 import com.core.util.PopupMessage;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * Groupement des actions lié aux catégories
+ * @author LUFFY
+ *
+ */
 public class CategorieAction extends TemplateAction implements ServletRequestAware,ServletResponseAware {
 	private HttpServletRequest req;
 	private HttpServletResponse resp;

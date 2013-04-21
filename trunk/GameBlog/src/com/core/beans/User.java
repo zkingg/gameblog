@@ -16,9 +16,9 @@ import com.exception.AlreadyActivateAccountException;
 import com.exception.UserNotFoundException;
 
 /**
- * 
- * @author LUFFY
  * Beans utilisateur
+ * @author LUFFY
+ * 
  */
 public class User {
 	private long id;

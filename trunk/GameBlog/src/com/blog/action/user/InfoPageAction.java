@@ -5,13 +5,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-
 import com.blog.action.TemplateAction;
 import com.core.beans.CarouselElement;
 import com.core.beans.User;
@@ -19,8 +16,12 @@ import com.core.util.GetConnection;
 import com.core.util.Pagination;
 import com.core.util.PopupMessage;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * Groupement des actions lié au back-end de gestion des utilisateurs/articles/catégories/configuration du site
+ * @author LUFFY
+ *
+ */
 public class InfoPageAction extends TemplateAction implements ServletRequestAware,ServletResponseAware{
 	private ArrayList<CarouselElement> element_carousel;
 	private ArrayList<User> list;

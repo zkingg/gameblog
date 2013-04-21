@@ -1,0 +1,10 @@
+com.blog.action
+com.blog.action.article
+com.blog.action.carousel
+com.blog.action.categorie
+com.blog.action.user
+com.blog.index
+com.blog.redirect
+com.core.beans
+com.core.util
+com.exception

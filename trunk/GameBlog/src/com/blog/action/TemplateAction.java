@@ -9,17 +9,16 @@ package com.blog.action;
 
 import java.util.ArrayList;
 import java.util.Map;
-
 import com.core.beans.CarouselElement;
 import com.core.util.PopupMessage;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * @author LUFFY
- * 
  * Action qui charge les informations neccéssaire sur toutes les pages.
  * Cette classe est a dériver pour bénificier des variable global dans vos actions
+ * @author LUFFY
+ * 
  */
 public class TemplateAction extends ActionSupport{
 	

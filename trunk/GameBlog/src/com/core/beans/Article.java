@@ -11,8 +11,9 @@ import com.exception.ArticleNotFoundException;
 import com.exception.UserNotFoundException;
 
 /**
- * @author LUFFY
  * Beans Article
+ * @author LUFFY
+ * 
  */
 public class Article {
 	private long id;

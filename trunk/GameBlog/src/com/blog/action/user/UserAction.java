@@ -1,21 +1,18 @@
 package com.blog.action.user;
 
 import java.util.Map;
-
-import javax.servlet.ServletRequestListener;
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
-import org.omg.CORBA.ServerRequest;
-
 import com.blog.action.TemplateAction;
 import com.core.beans.User;
 import com.core.util.PopupMessage;
-import com.exception.AlreadyActivateAccountException;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * Groupement des actions lié aux utilisateur
+ * @author LUFFY
+ *
+ */
 public class UserAction extends TemplateAction implements ServletRequestAware{
 	private String login;
 	private String mdp;

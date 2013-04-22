@@ -15,6 +15,7 @@ import com.core.beans.User;
 import com.core.util.GetConnection;
 import com.core.util.Pagination;
 import com.core.util.PopupMessage;
+import com.exception.UserNotFoundException;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -28,6 +29,7 @@ public class InfoPageAction extends TemplateAction implements ServletRequestAwar
 	public Pagination pagination;
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
+	private User user;
 	
 	@Override
 	public void setServletResponse(HttpServletResponse arg0) {resp = arg0;}
@@ -36,19 +38,24 @@ public class InfoPageAction extends TemplateAction implements ServletRequestAwar
 	public ArrayList<User> getList(){return this.list;}
 	public Pagination getPagination(){return this.pagination;}
 	public ArrayList<CarouselElement> getElement_carousel(){return this.element_carousel;}
+	public User getUser(){ return this.user;}
 	
 	/**
 	 * Action d'affichage de la page d'information du compte
 	 * @return redirect => index
 	 * @return success => user/user_page.jsp
 	 */
-	public String execute(){
+	public String execute(){	
 		Map session = ActionContext.getContext().getSession();
 		if(! session.containsKey("user")){
 			session.put("message",new PopupMessage("Vous devez &ecirc;tre connecter pour acceder a cette page ...", "error"));
 			return "redirect";
 		}else{
-			return "success";
+			try {
+				this.user = new User(((User)session.get("user")).getId());
+				return "success";
+			} 
+			catch (UserNotFoundException e) {return "redirect";}
 		}
 	}
 	

@@ -16,7 +16,7 @@
 		<jsp:include page="/jsp/layout/header.jsp" />
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span8 align_left">
+				<div class="span12 align_left">
 					<s:form method="post" action="/article/valid_article" acceptcharset="true" theme="simple">
 						<h1><s:text name="article.new.titre" /></h1>
 						<h2><label><s:text name="article.new.form.titre" /></label></h2>
@@ -54,9 +54,6 @@
 						<s:hidden name="id_auteur" value="%{#session.user.id}" />
 						<s:submit value = "%{getText('article.new.form.submit')}" cssClass="btn btn-primary"></s:submit>
 					</s:form>
-				</div>
-				<div class="span4">
-					<jsp:include page="/jsp/layout/menu.jsp" />
 				</div>
 			</div>
 		</div>

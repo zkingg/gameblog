@@ -17,7 +17,7 @@
 		<jsp:include page="/jsp/layout/header.jsp" />
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span8">
+				<div class="span12">
 					<div class="articles_zone">
 						<s:iterator value="articles">						
 							<fieldset >
@@ -31,9 +31,6 @@
 						</s:iterator>	
 					</div>
 					<jsp:include page="/jsp/layout/items/pagination.jsp" />
-				</div>
-				<div class="span4">
-					<jsp:include page="/jsp/layout/menu.jsp" />
 				</div>
 			</div>
 		</div>

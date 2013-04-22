@@ -17,15 +17,12 @@
 		<jsp:include page="/jsp/layout/header.jsp" />
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span8 align_left">
+				<div class="span12 align_left">
 					<h1><s:text name="categorie.new.form.titre" /></h1>
 					<s:form action="/categorie/valid" method="post" valid="true">
 						<s:textfield name="nom" id="nom" label="%{getText('categorie.new.form.nom')}" labelposition="left" />
 						<s:submit value = "%{getText('categorie.new.form.submit')}" cssClass="btn btn-primary"></s:submit>
 					</s:form>
-				</div>
-				<div class="span4">
-					<jsp:include page="/jsp/layout/menu.jsp" />
 				</div>
 			</div>
 		</div>

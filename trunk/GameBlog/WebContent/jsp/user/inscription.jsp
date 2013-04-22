@@ -17,7 +17,7 @@
 		<jsp:include page="/jsp/layout/header.jsp" />
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span8">
+				<div class="span12">
 					<s:form method="post" action="inscription_valider" validate="true">
 						<h1><s:text name="user.inscription.titre" ></s:text></h1>
 						<s:textfield name="login" id="login" 
@@ -34,9 +34,6 @@
 						</s:textfield>
 						<s:submit cssClass="btn btn-primary" value = "%{getText('user.inscription.envoyer')}" ></s:submit>
 					</s:form>				
-				</div>
-				<div class="span4">
-					<jsp:include page="/jsp/layout/menu.jsp" />
 				</div>
 			</div>
 		</div>

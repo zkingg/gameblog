@@ -59,7 +59,7 @@
 		<jsp:include page="/jsp/layout/header.jsp" />
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span8 ">
+				<div class="span12 ">
 					<h1>Configuration du carousel</h1>
 					<table class="table table-hover">
 						<tr>
@@ -94,9 +94,6 @@
 							<td><i class="icon-plus-sign" ></i> <s:text name="carousel.add.text"/></td>
 						</tr>
 					</table>
-				</div>
-				<div class="span4">
-					<jsp:include page="/jsp/layout/menu.jsp" />
 				</div>
 			</div>
 		</div>

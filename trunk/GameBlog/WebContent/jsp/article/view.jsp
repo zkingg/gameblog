@@ -16,7 +16,7 @@
 		<jsp:include page="/jsp/layout/header.jsp" />
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span8">
+				<div class="span12">
 					<div class="article_zone">
 						<fieldset>
 							<legend><h1><a href="/GameBlog/article/view?id=<s:property value="article.id"/>" ><s:property value="article.titre" escape="false" /></a></h1></legend>
@@ -25,9 +25,6 @@
 							</p>
 						</fieldset>
 					</div>
-				</div>
-				<div class="span4">
-					<jsp:include page="/jsp/layout/menu.jsp" />
 				</div>
 			</div>
 		</div>
